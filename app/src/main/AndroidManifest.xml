@@ -28,11 +28,6 @@
         <activity
             android:name="contact.activity.container.ContainerActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
-
-        <service
-            android:name="contact.service.DownloadService"
-            android:enabled="true"
-            android:exported="false" />
     </application>
 
 </manifest>
