@@ -1,0 +1,26 @@
+apply from: "${rootProject.projectDir.path}${File.separatorChar}gradle${File.separatorChar}detekt${File.separatorChar}detekt.gradle"
+apply plugin: 'kotlin'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+}
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.code.gson:gson:$gsonVersion"
+}
