@@ -5,8 +5,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [
-    ApplicationModule::class,
-    ViewModelFactoryModule::class
+    ApplicationModule::class
 ])
 interface ApplicationComponent {
     fun viewComponent(): FragmentComponent

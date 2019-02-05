@@ -19,9 +19,6 @@ android {
         versionCode 1
         versionName "1.0"
     }
-    dataBinding {
-        enabled = true
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -69,10 +66,18 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
 
     implementation project(':domain')
+    implementation project(':rxpipe')
 
     implementation "com.jakewharton.timber:timber:$timberVersion"
+
+    implementation "com.jakewharton:butterknife:$butterknifeVersion"
+    kapt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
 
     // Tests
     testImplementation "junit:junit:$junitVersion"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
+
+
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlinVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroidVersion"
 }

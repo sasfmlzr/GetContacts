@@ -5,5 +5,4 @@ import dagger.Subcomponent
 
 @WorkerScope
 @Subcomponent
-interface WorkerComponent {
-}
+interface WorkerComponent

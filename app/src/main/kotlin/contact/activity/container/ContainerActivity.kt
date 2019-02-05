@@ -3,13 +3,10 @@ package contact.activity.container
 import android.os.Bundle
 import contact.R
 import contact.architecture.base.BaseActivity
-import contact.databinding.ActivityContainerFragmentBinding
 import contact.di.core.ActivityComponent
 import contact.fragment.contacts.ContactsFragment
-import kotlinx.android.synthetic.main.activity_container_fragment.*
 
-class ContainerActivity : BaseActivity<ContainerActivityVM,
-        ActivityContainerFragmentBinding>(ContainerActivityVM::class.java) {
+class ContainerActivity : BaseActivity() {
 
     override val layoutId = R.layout.activity_container_fragment
 
@@ -17,10 +14,9 @@ class ContainerActivity : BaseActivity<ContainerActivityVM,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.viewModel = viewModel
 
         supportFragmentManager.beginTransaction()
-                .replace(fragmentContainer.id, ContactsFragment())
+                .add(R.id.fragmentContainer, ContactsFragment())
                 .commit()
     }
 }

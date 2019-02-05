@@ -5,13 +5,11 @@ import android.os.Bundle
 import contact.R
 import contact.activity.container.ContainerActivity
 import contact.architecture.base.BaseActivity
-import contact.databinding.ActivityStartBinding
 import contact.di.core.ActivityComponent
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class StartActivity : BaseActivity<StartActivityVM,
-        ActivityStartBinding>(StartActivityVM::class.java) {
+class StartActivity : BaseActivity() {
 
     companion object {
         const val MIN_SHOW_TIME: Long = 2000
@@ -27,7 +25,6 @@ class StartActivity : BaseActivity<StartActivityVM,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.viewModel = viewModel
         initializeApp()
     }
 

@@ -1,34 +1,25 @@
 package contact.fragment.contacts
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import contact.R
 import contact.architecture.base.BaseFragment
-import contact.databinding.FragmentContactsBinding
 import contact.di.core.FragmentComponent
-import contact.di.core.Injector
-import kotlinx.android.synthetic.main.fragment_contacts.*
+import contact.pipe.contacts.ContactsFunnel
+import contact.pipe.contacts.ContactsPipeline
+import contact.pipe.contacts.ContactsState
+import javax.inject.Inject
 
-class ContactsFragment : BaseFragment<ContactsVM,
-        FragmentContactsBinding>(ContactsVM::class.java) {
+class ContactsFragment : BaseFragment<ContactsState, ContactsModel, ContactsUi>() {
 
+    override val layoutId: Int = R.layout.fragment_contacts
 
-    override fun inject(component: FragmentComponent) = Injector.viewComponent().inject(this)
+    @Inject
+    override lateinit var presenter: ContactsPresenter
+    @Inject
+    override lateinit var pipeline: ContactsPipeline
+    @Inject
+    override lateinit var ui: ContactsUi
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
+    override fun funnel(): ContactsFunnel = ContactsFunnel(ContactsState.idle())
 
-        binding = FragmentContactsBinding.inflate(inflater, container, false)
-
-        binding.viewModel = viewModel
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        contacts.text = viewModel.contacts
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-
+    override fun inject(component: FragmentComponent) = component.inject(this)
 }
