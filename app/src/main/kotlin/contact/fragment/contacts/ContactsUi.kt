@@ -1,7 +1,6 @@
 package contact.fragment.contacts
 
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -22,15 +21,12 @@ class ContactsUi @Inject constructor(
 
     @BindView(R.id.contacts)
     lateinit var contactView: TextView
-    @BindView(R.id.button)
-    lateinit var button: Button
 
     override fun bindViews(view: View): Unbinder = ButterKnife.bind(this, view)
 
     override fun onCreate() {
         super.onCreate()
         eventSource.onNext(ContactsInitEvent())
-        logger.d("asdsa", "Asdsadas")
     }
 
     override fun render(model: ContactsModel) {
@@ -42,7 +38,7 @@ class ContactsUi @Inject constructor(
     }
 
     @OnClick(R.id.button)
-    fun pushNutton(){
+    fun pushNutton() {
         eventSource.onNext(ContactsPushEvent())
     }
 }
