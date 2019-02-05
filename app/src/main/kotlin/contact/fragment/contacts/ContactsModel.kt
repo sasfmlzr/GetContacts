@@ -1,9 +1,8 @@
 package contact.fragment.contacts
 
 import contact.architecture.base.ui.UiModel
+import contact.architecture.Result
 
 data class ContactsModel(
-        val isError: Boolean,
-        val errorMessage: String,
-        val contactsResult: String?
+        val result: Result? = null
 ) : UiModel
