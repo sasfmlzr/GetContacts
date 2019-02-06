@@ -1,9 +1,9 @@
 package contact.architecture
 
-class LoadingStartedResult : Result()
+class LoadingStartedEventModel : EventModel()
 
-class LoadingEndedResult : Result()
+class LoadingEndedEventModel : EventModel()
 
-data class ErrorResult(val error: Throwable) : Result()
+data class ErrorEventModel(val error: Throwable) : EventModel()
 
-class HideErrorResult : Result()
+class HideErrorEventModel : EventModel()

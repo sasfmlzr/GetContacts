@@ -16,6 +16,7 @@ dependencies {
     implementation "com.google.dagger:dagger:$daggerVersion"
 
     implementation project(':domain')
+    implementation project(':data')
 }
 
 

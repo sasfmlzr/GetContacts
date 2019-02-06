@@ -9,10 +9,7 @@ import butterknife.Unbinder
 import contact.R
 import contact.architecture.base.ui.Ui
 import contact.architecture.logging.Logger
-import contact.pipe.contacts.ContactsInitEvent
-import contact.pipe.contacts.ContactsInitEventModel
-import contact.pipe.contacts.ContactsPushEvent
-import contact.pipe.contacts.ContactsPushEventModel
+import contact.pipe.contacts.*
 import javax.inject.Inject
 
 class ContactsUi @Inject constructor(
@@ -30,15 +27,17 @@ class ContactsUi @Inject constructor(
     }
 
     override fun render(model: ContactsModel) {
-        when (model.result) {
-            is ContactsInitEventModel -> contactView.text = model.result.contactsResult
-            is ContactsPushEventModel -> contactView.text = model.result.contactsPushResult
+        when (model.eventModel) {
+            is ContactsInitEventModel -> contactView.text = model.eventModel.contactsResult
+            is ContactsPushEventModel -> contactView.text = model.eventModel.contactsPushResult
+            is ObserveContactsEventModel -> contactView.text = model.eventModel.toString()
         }
         logger.d("ContactsUi", "RENDER EXECUTED")
     }
 
     @OnClick(R.id.button)
     fun pushNutton() {
-        eventSource.onNext(ContactsPushEvent())
+        eventSource.onNext(RequestObserveContactsEvent())
+    //    eventSource.onNext(ContactsPushEvent())
     }
 }

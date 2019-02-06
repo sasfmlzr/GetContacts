@@ -1,1 +1,1 @@
-include ':app', ':domain', ':rxpipe'
+include ':app', ':domain', ':rxpipe', ':data'

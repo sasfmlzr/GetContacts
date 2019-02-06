@@ -1,9 +1,6 @@
-package contact.usecase
+package contact.usecase.base
 
 import io.reactivex.Observable
-import io.reactivex.ObservableTransformer
-import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
 abstract class ObservableUseCase<in Params, Result> {
 

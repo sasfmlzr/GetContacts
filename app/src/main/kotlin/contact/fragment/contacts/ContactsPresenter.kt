@@ -7,7 +7,7 @@ import javax.inject.Inject
 class ContactsPresenter @Inject constructor() : Presenter<ContactsState, ContactsModel>() {
 
     override fun map(state: ContactsState): ContactsModel = ContactsModel(
-            result = state.result
+            eventModel = state.eventModel
     )
 
 }

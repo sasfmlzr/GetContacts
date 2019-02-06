@@ -1,8 +1,8 @@
 package contact.fragment.contacts
 
 import contact.architecture.base.ui.UiModel
-import contact.architecture.Result
+import contact.architecture.EventModel
 
 data class ContactsModel(
-        val result: Result? = null
+        val eventModel: EventModel? = null
 ) : UiModel

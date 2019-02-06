@@ -1,9 +1,6 @@
-package contact.usecase
+package contact.usecase.base
 
 import io.reactivex.Single
-import io.reactivex.SingleTransformer
-import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
 abstract class SingleUseCase<in Params, Result> {
 

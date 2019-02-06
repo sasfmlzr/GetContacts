@@ -1,9 +1,6 @@
-package contact.usecase
+package contact.usecase.base
 
 import io.reactivex.Completable
-import io.reactivex.CompletableTransformer
-import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
 abstract class CompletableUseCase<in Params> {
 

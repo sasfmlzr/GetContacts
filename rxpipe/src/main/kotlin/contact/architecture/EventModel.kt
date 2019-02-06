@@ -1,6 +1,6 @@
 package contact.architecture
 
-abstract class Result {
+abstract class EventModel {
 
     override fun toString() = javaClass.simpleName
 

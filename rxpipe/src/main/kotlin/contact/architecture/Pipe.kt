@@ -3,20 +3,20 @@ package contact.architecture
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 
-internal typealias Pipe = ObservableTransformer<ViewEvent, Result>
+internal typealias Pipe = ObservableTransformer<ViewEvent, EventModel>
 
-internal fun Observable<Result>.appendErrorResults() =
+internal fun Observable<EventModel>.appendErrorResults() =
         onErrorResumeNext { e: Throwable ->
-            Observable.just(ErrorResult(e), HideErrorResult())
+            Observable.just(ErrorEventModel(e), HideErrorEventModel())
         }
 
-internal fun Observable<Result>.appendLoadingResults() =
+internal fun Observable<EventModel>.appendLoadingResults() =
         onErrorResumeNext { _: Throwable ->
-            Observable.empty<Result>()
+            Observable.empty<EventModel>()
         }
-                .startWith(LoadingStartedResult())
-                .concatWith(Observable.just(LoadingEndedResult()))
+                .startWith(LoadingStartedEventModel())
+                .concatWith(Observable.just(LoadingEndedEventModel()))
 
-internal fun Observable<Result>.appendLoadingAndErrorResults() =
+internal fun Observable<EventModel>.appendLoadingAndErrorResults() =
         appendErrorResults()
                 .appendLoadingResults()

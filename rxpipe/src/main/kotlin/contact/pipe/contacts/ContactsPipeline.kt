@@ -10,6 +10,10 @@ class ContactsPipeline @Inject constructor() : Pipeline() {
     internal lateinit var contactsInitPipe: ContactsInitPipe
     @Inject
     internal lateinit var contactsPushPipe: ContactsPushPipe
+    @Inject
+    internal lateinit var observeContactsPipe: ObserveContactsPipe
 
-    override fun create(): List<Pipe> = listOf(contactsInitPipe, contactsPushPipe)
+    override fun create(): List<Pipe> = listOf(contactsInitPipe,
+            contactsPushPipe,
+            observeContactsPipe)
 }
