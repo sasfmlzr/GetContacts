@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import contact.R
 import contact.architecture.*
 import contact.architecture.base.ui.Ui
 import contact.architecture.base.ui.UiModel
@@ -34,7 +36,7 @@ abstract class BaseFragment<S : ViewState, M : UiModel, out U : Ui<M>>
     protected abstract fun funnel(): Funnel<S>
     protected abstract fun inject(component: FragmentComponent)
 
-    protected val eventSource = PublishSubject.create<ViewEvent>()
+    private val eventSource = PublishSubject.create<ViewEvent>()
     private lateinit var plumbing: Observable<M>
     private val defaultDisposable = CompositeDisposable()
     private val uiDisposable = CompositeDisposable()
@@ -77,10 +79,12 @@ abstract class BaseFragment<S : ViewState, M : UiModel, out U : Ui<M>>
         val activity = activity as AppCompatActivity
 
         val extensions = Extensions(activity)
+        val toolbar: Toolbar? = view.findViewById(R.id.toolbar) ?: activity.findViewById(R.id.toolbar)
+        activity.setSupportActionBar(toolbar)
         val toolkit = UiToolkit(
                 view,
                 activity.supportActionBar,
-                null,
+                toolbar,
                 eventSource,
                 extensions)
         ui.init(toolkit)
