@@ -20,9 +20,7 @@ internal class LocalContactStorage @Inject constructor(
             contactRepository.getAllOwnerContacts()
                     .map {
                         relay.accept(it)
-                    }
-                    .ignoreElement()
-
+                    }.ignoreElement()
 
     override fun getAll(): Observable<List<OwnerContacts>> {
         return relay
