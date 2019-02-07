@@ -13,12 +13,12 @@ import javax.inject.Singleton
 internal class ApiModule {
     companion object {
         private const val CONTACT_URL = "192.168.1.112"
+        private const val port = 8000
     }
 
     @Provides
     @Singleton
     fun getContactsRetrofitService(): ContactsApi {
-        val port = 8000
         val httpUrl = HttpUrl.Builder()
                 .host(CONTACT_URL)
                 .port(port)

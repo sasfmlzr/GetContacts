@@ -7,5 +7,4 @@ import dagger.Module
     (RepositoryModule::class),
     (StorageModule::class)
 ])
-class DataModule {
-}
+class DataModule
