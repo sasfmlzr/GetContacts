@@ -95,8 +95,10 @@ abstract class BaseFragment<S : ViewState, M : UiModel, out U : Ui<M>>
                 eventSource,
                 extensions, runtimePermissions)
 
-        val mapFr = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        (ui as? GoogleMapCallback)?.getMap(mapFr)
+        (ui as? GoogleMapCallback)?.let {
+            val mapFr = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+            it.getMap(mapFr)
+        }
 
         ui.init(toolkit)
         plumbing.subscribe(ui::render).also { uiDisposable.add(it) }
