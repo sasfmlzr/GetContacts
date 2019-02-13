@@ -89,7 +89,7 @@ class LocationUi @Inject constructor(
             is ContactsPushEventModel -> contactView.text = model.eventModel.contactsPushResult
             is ObserveContactsEventModel -> contactView.text = model.eventModel.toString()
         }
-        logger.d("ContactsUi", "RENDER EXECUTED")
+        logger.d("ContactsOwnerUi", "RENDER EXECUTED")
     }
 
     @OnClick(R.id.button)
