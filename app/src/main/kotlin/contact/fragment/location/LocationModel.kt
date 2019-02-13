@@ -1,4 +1,4 @@
-package contact.location
+package contact.fragment.location
 
 import contact.architecture.base.ui.UiModel
 import contact.architecture.EventModel

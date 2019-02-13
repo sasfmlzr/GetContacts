@@ -1,4 +1,4 @@
-package contact.location
+package contact.fragment.location
 
 import contact.R
 import contact.architecture.base.BaseFragment

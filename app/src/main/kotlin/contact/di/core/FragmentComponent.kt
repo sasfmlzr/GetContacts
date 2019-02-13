@@ -2,7 +2,7 @@ package contact.di.core
 
 import contact.di.base.FragmentScope
 import contact.fragment.contacts.ContactsFragment
-import contact.location.LocationFragment
+import contact.fragment.location.LocationFragment
 import dagger.Subcomponent
 
 @FragmentScope

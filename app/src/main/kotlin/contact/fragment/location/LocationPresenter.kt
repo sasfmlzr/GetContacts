@@ -1,4 +1,4 @@
-package contact.location
+package contact.fragment.location
 
 import contact.architecture.Presenter
 import contact.pipe.location.LocationState

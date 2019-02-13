@@ -1,4 +1,4 @@
-package contact.location
+package contact.fragment.location
 
 import android.Manifest
 import android.content.Context
