@@ -79,4 +79,5 @@ dependencies {
 
     implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlinVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroidVersion"
+    implementation 'com.google.android.gms:play-services-maps:16.0.0'
 }

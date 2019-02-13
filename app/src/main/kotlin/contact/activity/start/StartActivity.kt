@@ -31,7 +31,9 @@ class StartActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initializeApp()
+        if (savedInstanceState==null) {
+            initializeApp()
+        }
     }
 
     private fun initializeApp() {

@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar
 import butterknife.Unbinder
 import contact.architecture.EventSource
 import contact.architecture.Extensions
+import contact.architecture.RuntimePermissions
 
 abstract class Ui<in UM : UiModel> {
 
@@ -14,12 +15,14 @@ abstract class Ui<in UM : UiModel> {
     protected var extensions: Extensions? = null
     protected var actionBar: ActionBar? = null
     protected var toolbar: Toolbar? = null
+    protected lateinit var runtimePermissions: RuntimePermissions
 
     private lateinit var unbinder: Unbinder
 
     fun init(toolkit: UiToolkit) {
         eventSource = toolkit.eventSource
         extensions = toolkit.extensions
+        runtimePermissions = toolkit.runtimePermissions
         actionBar = toolkit.actionBar
         toolbar = toolkit.toolbar
         unbinder = bindViews(toolkit.view)

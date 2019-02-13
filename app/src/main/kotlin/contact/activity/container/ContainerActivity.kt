@@ -4,7 +4,7 @@ import android.os.Bundle
 import contact.R
 import contact.architecture.base.BaseActivity
 import contact.di.core.ActivityComponent
-import contact.fragment.contacts.ContactsFragment
+import contact.location.LocationFragment
 
 class ContainerActivity : BaseActivity() {
 
@@ -16,7 +16,7 @@ class ContainerActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
         supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, ContactsFragment())
+                .add(R.id.fragmentContainer, LocationFragment())
                 .commit()
     }
 }

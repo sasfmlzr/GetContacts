@@ -1,5 +1,6 @@
 package contact.architecture.base
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import com.google.android.gms.maps.SupportMapFragment
 import contact.R
 import contact.architecture.*
 import contact.architecture.base.ui.Ui
@@ -24,7 +26,11 @@ import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 abstract class BaseFragment<S : ViewState, M : UiModel, out U : Ui<M>>
- : Fragment() {
+    : Fragment() {
+
+    companion object {
+        private const val permissionRequestCode = 100
+    }
 
     @Inject
     lateinit var logger: Logger
@@ -79,14 +85,19 @@ abstract class BaseFragment<S : ViewState, M : UiModel, out U : Ui<M>>
         val activity = activity as AppCompatActivity
 
         val extensions = Extensions(activity)
-        val toolbar: Toolbar? = view.findViewById(R.id.toolbar) ?: activity.findViewById(R.id.toolbar)
+        val toolbar: Toolbar? = view.findViewById(R.id.toolbar)
+                ?: activity.findViewById(R.id.toolbar)
         activity.setSupportActionBar(toolbar)
         val toolkit = UiToolkit(
                 view,
                 activity.supportActionBar,
                 toolbar,
                 eventSource,
-                extensions)
+                extensions, runtimePermissions)
+
+        val mapFr = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        (ui as? GoogleMapCallback)?.getMap(mapFr)
+
         ui.init(toolkit)
         plumbing.subscribe(ui::render).also { uiDisposable.add(it) }
     }
@@ -102,5 +113,31 @@ abstract class BaseFragment<S : ViewState, M : UiModel, out U : Ui<M>>
     override fun onDestroy() {
         super.onDestroy()
         defaultDisposable.clear()
+    }
+
+    private val runtimePermissions = object : RuntimePermissions {
+        override fun request(permissions: List<String>) {
+            requestPermissions(permissions.toTypedArray(), permissionRequestCode)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode != permissionRequestCode) {
+            return
+        }
+
+        val grantedPermissions: MutableList<String> = mutableListOf()
+
+        if (permissions.isNotEmpty() && grantResults.isNotEmpty()) {
+            for ((index, value) in grantResults.withIndex()) {
+                if (value == PackageManager.PERMISSION_GRANTED) {
+                    grantedPermissions.add(permissions[index])
+                }
+            }
+        }
+
+        (ui as? PermissionsCallback)?.onPermissionsGranted(grantedPermissions)
     }
 }
