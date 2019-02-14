@@ -4,31 +4,106 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
+import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractExpandableItemAdapter
+import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractExpandableItemViewHolder
 import contact.R
+import contact.api.model.contact.Contact
 import contact.api.model.contact.OwnerContacts
 
-class ContactsOwnerListAdapter constructor(private val onClickItem: (OwnerContacts) -> Unit) :
-        ListAdapter<OwnerContacts, ContactsOwnerListAdapter.ViewHolder>
-        (ContactsOwnerListDiffUtil()) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactsOwnerListAdapter.ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        return ViewHolder(inflater.inflate(R.layout.item_contact, parent, false))
-    }
+class ContactsOwnerListAdapter(contactOwners: List<OwnerContacts>,
+                               private val onClickLookLocation: (String) -> Unit) :
+        AbstractExpandableItemAdapter
+        <ContactsOwnerListAdapter.ParentViewHolder,
+                ContactsOwnerListAdapter.ChildViewHolder>() {
 
-    override fun onBindViewHolder(holder: ContactsOwnerListAdapter.ViewHolder, position: Int) {
-        holder.bind(getItem(position), onClickItem)
-    }
+    private val myGroupItem = mutableListOf<MyGroupItem>()
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(contactsOwner: OwnerContacts, onClickItem: (OwnerContacts) -> Unit) {
-            val name = itemView.findViewById<TextView>(R.id.contact_item_name)
-            val date = itemView.findViewById<TextView>(R.id.contact_item_last_date)
-            with(itemView) {
-                name.text = contactsOwner.id
-                setOnClickListener { onClickItem(contactsOwner) }
+    init {
+        setHasStableIds(true)
+
+        for (i in 0 until contactOwners.size) {
+            val owner = contactOwners[i]
+
+            val childItems = mutableListOf<MyChildItem>()
+            childItems.add(MyChildItem(0.toLong(), Contact("Look location")))
+
+            if (owner.contacts.size != 0) {
+                for (j in 0 until owner.contacts.size) {
+                    val contact = owner.contacts[j]
+                    childItems.add(MyChildItem(j + 1.toLong(), contact))
+                }
             }
+
+            myGroupItem.add(MyGroupItem(i.toLong(),
+                    owner, childItems)
+            )
         }
     }
+
+    override fun onCheckCanExpandOrCollapseGroup(holder: ParentViewHolder,
+                                                 groupPosition: Int,
+                                                 x: Int,
+                                                 y: Int,
+                                                 expand: Boolean): Boolean {
+        return true
+    }
+
+    override fun onCreateGroupViewHolder(parent: ViewGroup?, viewType: Int): ParentViewHolder {
+        return ParentViewHolder(LayoutInflater.from
+        (parent?.context).inflate(R.layout.item_owner_contact,
+                parent,
+                false))
+    }
+
+    override fun onBindGroupViewHolder(holder: ParentViewHolder, groupPosition: Int, viewType: Int) {
+        val owner = myGroupItem[groupPosition]
+        holder.name.text = owner.ownerContacts.id
+    }
+
+    override fun getGroupId(groupPosition: Int): Long {
+        return myGroupItem[groupPosition].id
+    }
+
+    override fun getGroupCount(): Int = myGroupItem.size
+
+
+    override fun onCreateChildViewHolder(parent: ViewGroup?, viewType: Int): ChildViewHolder {
+        return ChildViewHolder(LayoutInflater.from
+        (parent?.context).inflate(R.layout.item_contact,
+                parent,
+                false))
+    }
+
+    override fun onBindChildViewHolder(holder: ChildViewHolder, groupPosition: Int, childPosition: Int, viewType: Int) {
+        val contact = myGroupItem[groupPosition].children[childPosition].contact
+        holder.name.text = contact.name
+        holder.phone.text = contact.phone
+
+        if (childPosition == 0) {
+            holder.itemView.setOnClickListener { onClickLookLocation(myGroupItem[groupPosition].ownerContacts.id) }
+        }
+    }
+
+    override fun getChildId(groupPosition: Int, childPosition: Int): Long {
+        return myGroupItem[groupPosition].children[childPosition].id
+    }
+
+    override fun getChildCount(groupPosition: Int): Int = myGroupItem[groupPosition].children.size
+
+
+    class ParentViewHolder(itemView: View) : AbstractExpandableItemViewHolder(itemView) {
+        val name = itemView.findViewById<TextView>(R.id.contact_item_name)
+        val date = itemView.findViewById<TextView>(R.id.contact_item_last_date)
+    }
+
+    class ChildViewHolder(itemView: View) : AbstractExpandableItemViewHolder(itemView) {
+        val name = itemView.findViewById<TextView>(R.id.contact_item_name)
+        val phone = itemView.findViewById<TextView>(R.id.contact_item_phone)
+    }
+
+    internal inner class MyGroupItem(val id: Long,
+                                     val ownerContacts: OwnerContacts,
+                                     val children: List<MyChildItem>)
+
+    internal inner class MyChildItem(val id: Long, val contact: Contact)
 }
