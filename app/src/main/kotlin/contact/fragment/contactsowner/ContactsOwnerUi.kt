@@ -28,12 +28,10 @@ class ContactsOwnerUi @Inject constructor(
 
     val expMgr = RecyclerViewExpandableItemManager(null)
 
-
     override fun bindViews(view: View): Unbinder = ButterKnife.bind(this, view)
 
     override fun onCreate() {
         super.onCreate()
-
         contactRV.layoutManager = LinearLayoutManager(context)
         eventSource.onNext(RequestObserveContactsOwnerEvent())
 

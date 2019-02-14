@@ -55,7 +55,9 @@ class ContactsOwnerListAdapter(contactOwners: List<OwnerContacts>,
                 false))
     }
 
-    override fun onBindGroupViewHolder(holder: ParentViewHolder, groupPosition: Int, viewType: Int) {
+    override fun onBindGroupViewHolder(holder: ParentViewHolder,
+                                       groupPosition: Int,
+                                       viewType: Int) {
         val owner = myGroupItem[groupPosition]
         holder.name.text = owner.ownerContacts.id
     }
@@ -74,13 +76,18 @@ class ContactsOwnerListAdapter(contactOwners: List<OwnerContacts>,
                 false))
     }
 
-    override fun onBindChildViewHolder(holder: ChildViewHolder, groupPosition: Int, childPosition: Int, viewType: Int) {
+    override fun onBindChildViewHolder(holder: ChildViewHolder,
+                                       groupPosition: Int,
+                                       childPosition: Int,
+                                       viewType: Int) {
         val contact = myGroupItem[groupPosition].children[childPosition].contact
         holder.name.text = contact.name
         holder.phone.text = contact.phone
 
         if (childPosition == 0) {
-            holder.itemView.setOnClickListener { onClickLookLocation(myGroupItem[groupPosition].ownerContacts.id) }
+            holder.itemView.setOnClickListener {
+                onClickLookLocation(myGroupItem[groupPosition].ownerContacts.id)
+            }
         }
     }
 
