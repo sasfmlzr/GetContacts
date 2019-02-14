@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navContactsOwnerFragment">
+
+    <fragment
+        android:id="@+id/navContactsOwnerFragment"
+        android:name="contact.fragment.contactsowner.ContactsOwnerFragment"
+        android:label="ContactsOwnerFragment">
+        <action
+            android:id="@+id/actionShowLocationFragment"
+            app:destination="@id/navLocationFragment"
+            app:popUpTo="@+id/navLocationFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/navLocationFragment"
+        android:name="contact.fragment.location.LocationFragment"
+        android:label="LocationFragment" />
+
+</navigation>

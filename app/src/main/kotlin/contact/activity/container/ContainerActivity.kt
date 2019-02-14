@@ -1,10 +1,9 @@
 package contact.activity.container
 
-import android.os.Bundle
+import androidx.navigation.Navigation
 import contact.R
 import contact.architecture.base.BaseActivity
 import contact.di.core.ActivityComponent
-import contact.fragment.contactsowner.ContactsOwnerFragment
 
 class ContainerActivity : BaseActivity() {
 
@@ -12,11 +11,6 @@ class ContainerActivity : BaseActivity() {
 
     override fun inject(component: ActivityComponent) = component.inject(this)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, ContactsOwnerFragment())
-                .commit()
-    }
+    override fun onSupportNavigateUp() =
+            Navigation.findNavController(this, R.id.navHostFragment).navigateUp()
 }
