@@ -28,7 +28,7 @@ class ContactsOwnerUi @Inject constructor(
     @BindView(R.id.recycler_view_owner_contacts)
     lateinit var contactRV: RecyclerView
 
-    val expMgr = RecyclerViewExpandableItemManager(null)
+    private val expMgr = RecyclerViewExpandableItemManager(null)
 
     override fun bindViews(view: View): Unbinder = ButterKnife.bind(this, view)
 
@@ -49,6 +49,7 @@ class ContactsOwnerUi @Inject constructor(
     }
 
     private fun configureAdapter(listOwnerContacts: List<OwnerContacts>) {
+        expMgr.release()
         val adapter = expMgr.createWrappedAdapter(
                 ContactsOwnerListAdapter(listOwnerContacts){ nameOwner ->
                     logger.d("WTF", "ROUTE TO LOCATION $nameOwner")
