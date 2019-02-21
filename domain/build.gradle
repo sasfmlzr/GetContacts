@@ -15,4 +15,5 @@ dependencies {
     implementation "com.jakewharton.rxrelay2:rxrelay:$rxrelayVersion"
 
     implementation "com.google.code.gson:gson:$gsonVersion"
+    implementation 'joda-time:joda-time:2.10.1'
 }

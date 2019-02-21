@@ -1,8 +1,8 @@
 package contact.api.location
 
 import com.google.gson.annotations.SerializedName
-import java.util.*
 
-data class GetLocation(@SerializedName("latitude") val name: Double,
-                       @SerializedName("longitude") val phone: Double,
-                       @SerializedName("date") val date: Date)
+
+data class GetLocation(@SerializedName("latitude") val latitude: Double,
+                       @SerializedName("longitude") val longitude: Double,
+                       @SerializedName("date") val date: org.joda.time.LocalDateTime)

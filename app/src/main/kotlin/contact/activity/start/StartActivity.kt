@@ -11,6 +11,7 @@ import contact.architecture.base.BaseActivity
 import contact.di.core.ActivityComponent
 import contact.usecase.feature.InitUseCase
 import kotlinx.coroutines.*
+import java.util.*
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
@@ -40,6 +41,7 @@ class StartActivity : BaseActivity() {
         retryButton.setOnClickListener {
             initializeApp()
         }
+
         if (savedInstanceState == null) {
             initializeApp()
         }
@@ -53,6 +55,7 @@ class StartActivity : BaseActivity() {
                 initUseCase.buildUseCaseObservable(Unit).doOnComplete {
                     loadingMainActivity()
                 }.doOnError {
+                    it.printStackTrace()
                     Snackbar.make(findViewById(android.R.id.content),
                             "Server not response",
                             Snackbar.LENGTH_LONG).show()
