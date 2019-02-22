@@ -49,7 +49,6 @@ class ContactsOwnerUi @Inject constructor(
     }
 
     private fun configureAdapter(listOwnerContacts: List<OwnerContacts>) {
-        expMgr.release()
         val adapter = expMgr.createWrappedAdapter(
                 ContactsOwnerListAdapter(listOwnerContacts){ nameOwner ->
                     logger.d("WTF", "ROUTE TO LOCATION $nameOwner")
