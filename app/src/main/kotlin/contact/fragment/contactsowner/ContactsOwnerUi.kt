@@ -28,12 +28,13 @@ class ContactsOwnerUi @Inject constructor(
     @BindView(R.id.recycler_view_owner_contacts)
     lateinit var contactRV: RecyclerView
 
-    private val expMgr = RecyclerViewExpandableItemManager(null)
+    private lateinit var expMgr: RecyclerViewExpandableItemManager
 
     override fun bindViews(view: View): Unbinder = ButterKnife.bind(this, view)
 
     override fun onCreate() {
         super.onCreate()
+        expMgr = RecyclerViewExpandableItemManager(null)
         contactRV.layoutManager = LinearLayoutManager(context)
         eventSource.onNext(RequestObserveContactsOwnerEvent())
 
@@ -50,12 +51,17 @@ class ContactsOwnerUi @Inject constructor(
 
     private fun configureAdapter(listOwnerContacts: List<OwnerContacts>) {
         val adapter = expMgr.createWrappedAdapter(
-                ContactsOwnerListAdapter(listOwnerContacts){ nameOwner ->
+                ContactsOwnerListAdapter(listOwnerContacts) { nameOwner ->
                     logger.d("WTF", "ROUTE TO LOCATION $nameOwner")
                     Navigator(contactRV.findNavController()).navigateContactOwnerToLocationFragment()
                 })
 
         contactRV.adapter = adapter
         expMgr.attachRecyclerView(contactRV)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        expMgr.release()
     }
 }
