@@ -10,7 +10,7 @@
         android:label="ContactsOwnerFragment">
         <action
             android:id="@+id/actionShowLocationFragment"
-            app:destination="@id/navLocationFragment"
+            app:destination="@+id/navLocationFragment"
             app:popUpTo="@+id/navLocationFragment"
             app:popUpToInclusive="true" />
     </fragment>

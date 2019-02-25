@@ -52,7 +52,6 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
 
             val lastPlace = LatLng(locations.last().latitude, locations.last().longitude)
 
-
             googleMap.addPolyline(polyLines)
             googleMap.moveCamera(CameraUpdateFactory.zoomTo(15.0f))
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(lastPlace))

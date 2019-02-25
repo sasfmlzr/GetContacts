@@ -53,7 +53,8 @@ class ContactsOwnerUi @Inject constructor(
         val adapter = expMgr.createWrappedAdapter(
                 ContactsOwnerListAdapter(listOwnerContacts) { nameOwner ->
                     logger.d("WTF", "ROUTE TO LOCATION $nameOwner")
-                    Navigator(contactRV.findNavController()).navigateContactOwnerToLocationFragment()
+                    Navigator(contactRV.findNavController())
+                            .navigateContactOwnerToLocationFragment(nameOwner)
                 })
 
         contactRV.adapter = adapter
