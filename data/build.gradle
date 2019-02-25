@@ -22,7 +22,8 @@ dependencies {
 
     testImplementation "junit:junit:$junitVersion"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    
+    implementation "joda-time:joda-time:$jodaTimeVersion"
 
     implementation(project(':domain'))
-    implementation 'joda-time:joda-time:2.10.1'
 }
