@@ -1,11 +1,10 @@
 package contact.pipe.location
 
-import contact.architecture.Pipe
 import contact.architecture.EventModel
+import contact.architecture.Pipe
 import contact.architecture.ViewEvent
 import contact.architecture.logging.Logger
-import contact.pipe.contacts.ContactsInitEvent
-import contact.pipe.contacts.ContactsInitEventModel
+import contact.pipe.contactsowner.ContactsOwnerInitEventModel
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
@@ -22,7 +21,7 @@ internal class LocationInitPipe @Inject constructor(
                 logContact()
                         .toObservable<EventModel>()
                         .concatWith(
-                                Observable.just(ContactsInitEventModel(contactsResult = "Alexey")))
+                                Observable.just(ContactsOwnerInitEventModel(contactsResult = "Alexey")))
             }
 
     private fun logContact(): Completable = Completable.fromAction {

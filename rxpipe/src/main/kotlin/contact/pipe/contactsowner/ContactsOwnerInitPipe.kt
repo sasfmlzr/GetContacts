@@ -1,10 +1,9 @@
 package contact.pipe.contactsowner
 
-import contact.architecture.Pipe
 import contact.architecture.EventModel
+import contact.architecture.Pipe
 import contact.architecture.ViewEvent
 import contact.architecture.logging.Logger
-import contact.storage.ContactStorage
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.ObservableSource

@@ -11,9 +11,9 @@ import contact.architecture.base.BaseActivity
 import contact.di.core.ActivityComponent
 import contact.usecase.feature.InitUseCase
 import kotlinx.coroutines.*
-import java.util.*
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
+import kotlin.system.measureTimeMillis
 
 class StartActivity : BaseActivity() {
 
@@ -50,22 +50,32 @@ class StartActivity : BaseActivity() {
     private fun initializeApp() {
         coroutineScope.launch {
 
-            delay(MIN_SHOW_TIME)
             withContext(Dispatchers.Default) {
-                initUseCase.buildUseCaseObservable(Unit).doOnComplete {
-                    loadingMainActivity()
-                }.doOnError {
-                    it.printStackTrace()
-                    Snackbar.make(findViewById(android.R.id.content),
-                            "Server not response",
-                            Snackbar.LENGTH_LONG).show()
-                    coroutineScope.launch {
-                        withContext(Dispatchers.Main) {
-                            retryButton.visibility = View.VISIBLE
-                        }
-                    }
-                }.onErrorComplete()
-                        .subscribe()
+                val timeElapsed = measureTimeMillis {
+                    executeInitUseCase()
+                }
+                delay(MIN_SHOW_TIME - timeElapsed)
+            }
+        }
+    }
+
+    private fun executeInitUseCase() {
+        initUseCase.buildUseCaseObservable(Unit).doOnComplete {
+            loadingMainActivity()
+        }.doOnError {
+            it.printStackTrace()
+            Snackbar.make(findViewById(android.R.id.content),
+                    "Server not response",
+                    Snackbar.LENGTH_LONG).show()
+            doRetryBtnVisible()
+        }.onErrorComplete()
+                .subscribe()
+    }
+
+    private fun doRetryBtnVisible() {
+        coroutineScope.launch {
+            withContext(Dispatchers.Main) {
+                retryButton.visibility = View.VISIBLE
             }
         }
     }

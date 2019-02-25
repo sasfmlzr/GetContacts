@@ -1,12 +1,9 @@
 package contacts.repository
 
-import contacts.api.ContactsApi
 import contact.api.model.contact.OwnerContacts
 import contact.repository.ContactRepository
+import contacts.api.ContactsApi
 import io.reactivex.Single
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import javax.inject.Inject
 
 internal class NetworkContactRepository @Inject constructor(

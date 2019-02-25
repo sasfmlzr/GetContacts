@@ -1,19 +1,12 @@
 package contacts.di
 
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonDeserializer
-import com.google.gson.JsonObject
-import contact.api.location.GetLocation
-import contact.api.model.contact.OwnerContacts
 import contacts.api.ContactsApi
 import contacts.api.ContactsConverterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.HttpUrl
-import org.joda.time.format.DateTimeFormat
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 

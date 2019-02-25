@@ -21,9 +21,6 @@ import contact.architecture.GoogleMapCallback
 import contact.architecture.PermissionsCallback
 import contact.architecture.base.ui.Ui
 import contact.architecture.logging.Logger
-import contact.pipe.contacts.ContactsInitEventModel
-import contact.pipe.contacts.ContactsPushEventModel
-import contact.pipe.contacts.ObserveContactsEventModel
 import javax.inject.Inject
 
 class LocationUi @Inject constructor(
@@ -85,9 +82,6 @@ class LocationUi @Inject constructor(
 
     override fun render(model: LocationModel) {
         when (model.eventModel) {
-            is ContactsInitEventModel -> contactView.text = model.eventModel.contactsResult
-            is ContactsPushEventModel -> contactView.text = model.eventModel.contactsPushResult
-            is ObserveContactsEventModel -> contactView.text = model.eventModel.toString()
         }
         logger.d("ContactsOwnerUi", "RENDER EXECUTED")
     }
