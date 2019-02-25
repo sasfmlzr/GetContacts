@@ -3,9 +3,9 @@ package contact.pipe.contactsowner
 import contact.architecture.EventModel
 import contact.architecture.ViewState
 
-data class ContactsOwnerState (
+data class ContactsOwnerState(
         val eventModel: EventModel? = null
-): ViewState {
+) : ViewState {
     companion object {
         fun idle() = ContactsOwnerState()
     }

@@ -1,7 +1,7 @@
-package contact.pipe.contactsowner
+package contact.pipe.common
 
-import contact.architecture.Pipe
 import contact.architecture.EventModel
+import contact.architecture.Pipe
 import contact.architecture.ViewEvent
 import contact.usecase.feature.ObserveAllContactsUseCase
 import io.reactivex.Observable
