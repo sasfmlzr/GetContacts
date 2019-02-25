@@ -16,8 +16,8 @@ import contact.architecture.Navigator
 import contact.architecture.base.ui.Ui
 import contact.architecture.logging.Logger
 import contact.fragment.contactsowner.list.ContactsOwnerListAdapter
-import contact.pipe.common.ObserveContactsOwnerEventModel
-import contact.pipe.common.RequestObserveContactsOwnerEvent
+import contact.pipe.contactsowner.ObserveContactsOwnerEventModel
+import contact.pipe.contactsowner.RequestObserveContactsOwnerEvent
 import javax.inject.Inject
 
 class ContactsOwnerUi @Inject constructor(

@@ -1,4 +1,4 @@
-package contact.pipe.common
+package contact.pipe.contactsowner
 
 import contact.architecture.EventModel
 import contact.architecture.Pipe
