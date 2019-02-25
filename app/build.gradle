@@ -88,6 +88,8 @@ dependencies {
     implementation "android.arch.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "android.arch.navigation:navigation-ui-ktx:$navigationVersion"
 
+    implementation 'joda-time:joda-time:2.10.1'
+
 
 
 }

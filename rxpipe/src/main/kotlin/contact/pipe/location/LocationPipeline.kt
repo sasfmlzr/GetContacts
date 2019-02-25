@@ -8,7 +8,7 @@ import javax.inject.Inject
 class LocationPipeline @Inject constructor() : Pipeline() {
 
     @Inject
-    internal lateinit var observeContactsOwnerPipe: ObserveContactsOwnerPipe
+    internal lateinit var observeLocationsByIdPipe: ObserveLocationsByIdPipe
 
-    override fun create(): List<Pipe> = listOf(observeContactsOwnerPipe)
+    override fun create(): List<Pipe> = listOf(observeLocationsByIdPipe)
 }
