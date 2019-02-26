@@ -2,11 +2,12 @@ package contact.fragment.location
 
 import android.view.View
 import butterknife.ButterKnife
-import butterknife.OnClick
 import butterknife.Unbinder
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
 import contact.R
 import contact.api.location.GetLocation
 import contact.architecture.GoogleMapCallback
@@ -28,6 +29,26 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
     override fun onCreate() {
         super.onCreate()
         eventSource.onNext(RequestLocationsByIdEvent("alexey"))
+
+        actionBar?.title = "Last month"
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        toolbar?.apply {
+            post {
+                inflateMenu(R.menu.location_menu)
+            }
+
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.menu_filter -> showFilter().let { true }
+                    else -> false
+                }
+            }
+        }
+    }
+
+    private fun showFilter() {
+        print("sad")
     }
 
     override fun render(model: LocationModel) {
@@ -56,9 +77,5 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
             googleMap.moveCamera(CameraUpdateFactory.zoomTo(15.0f))
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(lastPlace))
         }
-    }
-
-    @OnClick(R.id.button)
-    fun pushButton() {
     }
 }
