@@ -90,6 +90,5 @@ dependencies {
 
     implementation "joda-time:joda-time:$jodaTimeVersion"
 
-
-
+    implementation 'com.github.drawers:SpinnerDatePicker:2.0.1'
 }

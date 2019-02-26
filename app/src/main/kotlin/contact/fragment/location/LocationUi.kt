@@ -8,12 +8,15 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
+import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
 import contact.R
 import contact.api.location.GetLocation
 import contact.architecture.GoogleMapCallback
 import contact.architecture.base.ui.Ui
 import contact.pipe.location.LocationEventModel
 import contact.pipe.location.RequestLocationsByIdEvent
+import org.joda.time.LocalDate
+import org.joda.time.LocalDateTime
 import javax.inject.Inject
 
 class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback {
@@ -23,6 +26,11 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
     override fun getMap(supportMapFragment: SupportMapFragment) {
         map = supportMapFragment
     }
+
+    private lateinit var wtf: View
+
+    private var minDate: LocalDateTime? = null
+    private var maxDate: LocalDateTime? = null
 
     override fun bindViews(view: View): Unbinder = ButterKnife.bind(this, view)
 
@@ -36,6 +44,7 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
         toolbar?.apply {
             post {
                 inflateMenu(R.menu.location_menu)
+                wtf = findViewById(R.id.menu_filter)
             }
 
             setOnMenuItemClickListener {
@@ -48,13 +57,50 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
     }
 
     private fun showFilter() {
-        print("sad")
+        val localDateTime = LocalDate.now()
+        val datePickerDialog = SpinnerDatePickerDialogBuilder()
+                .context(wtf.context)
+                .callback { view, year, monthOfYear, dayOfMonth ->
+                    {
+
+                    }
+                }
+                .defaultDate(localDateTime.year,
+                        localDateTime.monthOfYear - 1,
+                        localDateTime.dayOfMonth)
+                .minDate(minDate!!.year,
+                        minDate!!.monthOfYear - 1,
+                        minDate!!.dayOfMonth)
+                .maxDate(maxDate!!.year,
+                        maxDate!!.monthOfYear - 1,
+                        maxDate!!.dayOfMonth)
+                .build()
+                .show()
     }
 
     override fun render(model: LocationModel) {
         when (model.eventModel) {
             is LocationEventModel -> {
+                loadMinMaxDate(model.eventModel.locations)
                 configureLocations(model.eventModel.locations)
+            }
+        }
+    }
+
+    fun loadMinMaxDate(locations: List<GetLocation>) {
+        locations.forEach {
+            if (minDate == null) {
+                minDate = it.date
+            }
+            if (it.date < minDate) {
+                minDate = it.date
+            }
+
+            if (maxDate == null) {
+                maxDate = it.date
+            }
+            if (it.date > maxDate) {
+                maxDate = it.date
             }
         }
     }
