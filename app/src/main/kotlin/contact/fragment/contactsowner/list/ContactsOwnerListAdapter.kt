@@ -100,12 +100,12 @@ class ContactsOwnerListAdapter(contactOwners: List<OwnerContacts>,
 
     class ParentViewHolder(itemView: View) : AbstractExpandableItemViewHolder(itemView) {
         val name = itemView.findViewById<TextView>(R.id.contact_item_name)
-        val date = itemView.findViewById<TextView>(R.id.contact_item_last_date)
+        val date = itemView.findViewById<TextView>(R.id.contact_last_update)
     }
 
     class ChildViewHolder(itemView: View) : AbstractExpandableItemViewHolder(itemView) {
         val name = itemView.findViewById<TextView>(R.id.contact_item_name)
-        val phone = itemView.findViewById<TextView>(R.id.contact_item_phone)
+        val phone = itemView.findViewById<TextView>(R.id.contact_phone)
     }
 
     internal inner class MyGroupItem(val id: Long,
