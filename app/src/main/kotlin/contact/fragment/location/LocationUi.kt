@@ -57,13 +57,16 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
     }
 
     private fun showFilter() {
+        var oldDate: LocalDate
+        var newDate: LocalDate
         val localDateTime = LocalDate.now()
-        val datePickerDialog = SpinnerDatePickerDialogBuilder()
+
+        val newDatePickerDialog = SpinnerDatePickerDialogBuilder()
                 .context(wtf.context)
                 .callback { view, year, monthOfYear, dayOfMonth ->
-                    {
-
-                    }
+                    newDate = LocalDate(year, monthOfYear + 1, dayOfMonth)
+                   //eventSource.onNext(FilterEvent())
+                    print("")
                 }
                 .defaultDate(localDateTime.year,
                         localDateTime.monthOfYear - 1,
@@ -75,7 +78,28 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
                         maxDate!!.monthOfYear - 1,
                         maxDate!!.dayOfMonth)
                 .build()
-                .show()
+
+        newDatePickerDialog.setTitle("To")
+
+        val oldDatePickerDialog = SpinnerDatePickerDialogBuilder()
+                .context(wtf.context)
+                .callback { view, year, monthOfYear, dayOfMonth ->
+                    oldDate = LocalDate(year, monthOfYear + 1, dayOfMonth)
+                    newDatePickerDialog.show()
+                }
+                .defaultDate(localDateTime.year,
+                        localDateTime.monthOfYear - 1,
+                        localDateTime.dayOfMonth)
+                .minDate(minDate!!.year,
+                        minDate!!.monthOfYear - 1,
+                        minDate!!.dayOfMonth)
+                .maxDate(maxDate!!.year,
+                        maxDate!!.monthOfYear - 1,
+                        maxDate!!.dayOfMonth)
+                .build()
+
+        oldDatePickerDialog.setTitle("From")
+        oldDatePickerDialog.show()
     }
 
     override fun render(model: LocationModel) {
@@ -87,7 +111,7 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
         }
     }
 
-    fun loadMinMaxDate(locations: List<GetLocation>) {
+    private fun loadMinMaxDate(locations: List<GetLocation>) {
         locations.forEach {
             if (minDate == null) {
                 minDate = it.date
