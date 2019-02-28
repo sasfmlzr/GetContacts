@@ -15,7 +15,7 @@ class RequestLocationsByIdAndDateEvent(val id: String,
 internal class ObserveLocationsByIdPipe @Inject constructor(
         private val observeLocationsByIdUseCase: ObserveLocationsByIdUseCase
 ) : Pipe {
-    override fun apply(upstream: Observable<ViewEvent>) =
+    override fun apply(upstream: Observable<ViewEvent>): Observable<EventModel> =
             upstream.ofType(RequestLocationsByIdAndDateEvent::class.java)
                     .flatMap {
                         observeLocationsByIdUseCase
@@ -24,8 +24,8 @@ internal class ObserveLocationsByIdPipe @Inject constructor(
                                                 it.id,
                                                 it.fromDate,
                                                 it.toDate))
-                                .map<EventModel> {
-                                    LocationEventModel(it)
+                                .map<EventModel> {list ->
+                                    LocationEventModel(list)
                                 }.toObservable()
                     }
 }

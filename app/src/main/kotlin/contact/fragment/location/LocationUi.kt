@@ -14,7 +14,9 @@ import contact.api.location.GetLocation
 import contact.architecture.GoogleMapCallback
 import contact.architecture.base.ui.Ui
 import contact.pipe.location.LocationEventModel
+import contact.pipe.location.MinMaxDateEventModel
 import contact.pipe.location.RequestLocationsByIdAndDateEvent
+import contact.pipe.location.RequestMinMaxDateEvent
 import org.joda.time.LocalDate
 import org.joda.time.LocalDateTime
 import javax.inject.Inject
@@ -28,9 +30,8 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
     }
 
     private lateinit var filterButton: View
-
-    private var minDate: LocalDateTime? = null
-    private var maxDate: LocalDateTime? = null
+    private lateinit var minDate: LocalDateTime
+    private lateinit var maxDate: LocalDateTime
     private val dateTimeNow = LocalDateTime.now()
 
     override fun bindViews(view: View): Unbinder = ButterKnife.bind(this, view)
@@ -41,8 +42,24 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
                 "alexey",
                 dateTimeNow.minusMonths(1).toLocalDate(),
                 dateTimeNow.toLocalDate()))
+        configureToolbar()
+    }
 
-        actionBar?.title = "Last month"
+    override fun render(model: LocationModel) {
+        when (model.eventModel) {
+            is LocationEventModel -> {
+                eventSource.onNext(RequestMinMaxDateEvent(model.eventModel.locations))
+                configureLocations(model.eventModel.locations, "wow")
+            }
+            is MinMaxDateEventModel -> {
+                minDate = model.eventModel.minDate
+                maxDate = model.eventModel.maxDate
+            }
+        }
+    }
+
+    private fun configureToolbar() {
+        actionBar?.title = ""
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
         toolbar?.apply {
@@ -68,8 +85,8 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
             extensions!!.showDatePickerDialog(
                     "To",
                     dateTimeNow!!,
-                    minDate!!,
-                    maxDate!!,
+                    minDate,
+                    maxDate,
                     DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                         newDate = LocalDate(year, monthOfYear + 1, dayOfMonth)
                         eventSource.onNext(RequestLocationsByIdAndDateEvent(
@@ -84,8 +101,8 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
         extensions?.showDatePickerDialog(
                 "From",
                 dateTimeNow!!,
-                minDate!!,
-                maxDate!!,
+                minDate,
+                maxDate,
                 DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                     oldDate = LocalDate(year, monthOfYear + 1, dayOfMonth)
                     newDatePickerDialog.run { }
@@ -93,34 +110,7 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
         )
     }
 
-    override fun render(model: LocationModel) {
-        when (model.eventModel) {
-            is LocationEventModel -> {
-                loadMinMaxDate(model.eventModel.locations)
-                configureLocations(model.eventModel.locations)
-            }
-        }
-    }
-
-    private fun loadMinMaxDate(locations: List<GetLocation>) {
-        locations.forEach {
-            if (minDate == null) {
-                minDate = it.date
-            }
-            if (it.date < minDate) {
-                minDate = it.date
-            }
-
-            if (maxDate == null) {
-                maxDate = it.date
-            }
-            if (it.date > maxDate) {
-                maxDate = it.date
-            }
-        }
-    }
-
-    fun configureLocations(locations: List<GetLocation>) {
+    private fun configureLocations(locations: List<GetLocation>, title: String) {
         map.getMapAsync { googleMap ->
             googleMap.clear()
             val polyLines = PolylineOptions()
@@ -138,5 +128,7 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
             googleMap.moveCamera(CameraUpdateFactory.zoomTo(15.0f))
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(lastPlace))
         }
+        actionBar?.title = title
     }
+
 }
