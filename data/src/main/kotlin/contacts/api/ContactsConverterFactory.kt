@@ -17,7 +17,7 @@ class ContactsConverterFactory {
                     .registerTypeAdapter(OwnerContacts::class.java,
                             JsonDeserializer<OwnerContacts> { json, _, _ ->
                                 val jComment = json.asJsonObject
-                                val owner = getLocationParcer().fromJson(jComment,
+                                val owner = getLocationParser().fromJson(jComment,
                                         OwnerContacts::class.java)
                                 owner
                             })
@@ -25,7 +25,7 @@ class ContactsConverterFactory {
             return GsonConverterFactory.create(ownerContactsParser)
         }
 
-        private fun getLocationParcer() = GsonBuilder()
+        private fun getLocationParser() = GsonBuilder()
                 .registerTypeAdapter(
                         GetLocation::class.java,
                         JsonDeserializer<GetLocation> { locationJson, _, _ ->
