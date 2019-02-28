@@ -4,8 +4,8 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:layout_marginLeft="16dp"
-	android:layout_marginRight="16dp"
+	android:layout_marginStart="16dp"
+	android:layout_marginEnd="16dp"
 	android:padding="16dp">
 
 	<TextView
@@ -21,7 +21,7 @@
 		android:id="@+id/contact_item_name"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginLeft="16dp"
+		android:layout_marginStart="16dp"
 		android:ellipsize="end"
 		android:lines="1"
 		android:textStyle="bold"
@@ -33,7 +33,7 @@
 		android:id="@+id/contact_phone"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginLeft="16dp"
+		android:layout_marginStart="16dp"
 		app:layout_constraintLeft_toRightOf="@+id/contact_item_avatar"
 		app:layout_constraintTop_toBottomOf="@+id/contact_item_name"
 		tools:text="88005553535" />
