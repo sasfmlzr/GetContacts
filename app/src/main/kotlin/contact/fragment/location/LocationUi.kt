@@ -66,15 +66,15 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
 
         val newDatePickerDialog = SpinnerDatePickerDialogBuilder()
                 .context(filterButton.context)
-                .callback { view, year, monthOfYear, dayOfMonth ->
+                .callback { _, year, monthOfYear, dayOfMonth ->
                     newDate = LocalDate(year, monthOfYear + 1, dayOfMonth)
                    eventSource.onNext(RequestLocationsByIdAndDateEvent(
                            "alexey",
                            oldDate!!,
                            newDate))
                 }
-                .spinnerTheme(R.style.NumberPickerStyle)
-                .dialogTheme(R.style.Base_Theme_AppCompat_Light_Dialog)
+                .spinnerTheme(R.style.CustomNumberPickerStyle)
+                .dialogTheme(R.style.CustomDialogStyle)
                 .defaultDate(dateTimeNow.year,
                         dateTimeNow.monthOfYear - 1,
                         dateTimeNow.dayOfMonth)
@@ -90,22 +90,21 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
 
         val oldDatePickerDialog = SpinnerDatePickerDialogBuilder()
                 .context(filterButton.context)
-                .callback { view, year, monthOfYear, dayOfMonth ->
+                .callback { _, year, monthOfYear, dayOfMonth ->
                     oldDate = LocalDate(year, monthOfYear + 1, dayOfMonth)
                     newDatePickerDialog.show()
                 }
                 .defaultDate(dateTimeNow.year,
                         dateTimeNow.monthOfYear - 1,
                         dateTimeNow.dayOfMonth)
-                .spinnerTheme(R.style.NumberPickerStyle)
-                .dialogTheme(R.style.Base_Theme_AppCompat_Light_Dialog)
+                .spinnerTheme(R.style.CustomNumberPickerStyle)
+                .dialogTheme(R.style.CustomDialogStyle)
                 .minDate(minDate!!.year,
                         minDate!!.monthOfYear - 1,
                         minDate!!.dayOfMonth)
                 .maxDate(maxDate!!.year,
                         maxDate!!.monthOfYear - 1,
                         maxDate!!.dayOfMonth)
-
                 .build()
 
         oldDatePickerDialog.setTitle("From")
