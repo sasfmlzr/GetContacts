@@ -14,7 +14,7 @@ import contact.api.location.GetLocation
 import contact.architecture.GoogleMapCallback
 import contact.architecture.base.ui.Ui
 import contact.pipe.location.LocationEventModel
-import contact.pipe.location.RequestLocationsByIdEvent
+import contact.pipe.location.RequestLocationsByIdAndDateEvent
 import org.joda.time.LocalDate
 import org.joda.time.LocalDateTime
 import javax.inject.Inject
@@ -27,16 +27,20 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
         map = supportMapFragment
     }
 
-    private lateinit var wtf: View
+    private lateinit var filterButton: View
 
     private var minDate: LocalDateTime? = null
     private var maxDate: LocalDateTime? = null
+    private val dateTimeNow = LocalDate.now()
 
     override fun bindViews(view: View): Unbinder = ButterKnife.bind(this, view)
 
     override fun onCreate() {
         super.onCreate()
-        eventSource.onNext(RequestLocationsByIdEvent("alexey"))
+        eventSource.onNext(RequestLocationsByIdAndDateEvent(
+                "alexey",
+                dateTimeNow.minusMonths(1),
+                dateTimeNow))
 
         actionBar?.title = "Last month"
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -44,7 +48,7 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
         toolbar?.apply {
             post {
                 inflateMenu(R.menu.location_menu)
-                wtf = findViewById(R.id.menu_filter)
+                filterButton = findViewById(R.id.menu_filter)
             }
 
             setOnMenuItemClickListener {
@@ -57,20 +61,23 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
     }
 
     private fun showFilter() {
-        var oldDate: LocalDate
+        var oldDate: LocalDate? = null
         var newDate: LocalDate
-        val localDateTime = LocalDate.now()
 
         val newDatePickerDialog = SpinnerDatePickerDialogBuilder()
-                .context(wtf.context)
+                .context(filterButton.context)
                 .callback { view, year, monthOfYear, dayOfMonth ->
                     newDate = LocalDate(year, monthOfYear + 1, dayOfMonth)
-                   //eventSource.onNext(FilterEvent())
-                    print("")
+                   eventSource.onNext(RequestLocationsByIdAndDateEvent(
+                           "alexey",
+                           oldDate!!,
+                           newDate))
                 }
-                .defaultDate(localDateTime.year,
-                        localDateTime.monthOfYear - 1,
-                        localDateTime.dayOfMonth)
+                .spinnerTheme(R.style.NumberPickerStyle)
+                .dialogTheme(R.style.Base_Theme_AppCompat_Light_Dialog)
+                .defaultDate(dateTimeNow.year,
+                        dateTimeNow.monthOfYear - 1,
+                        dateTimeNow.dayOfMonth)
                 .minDate(minDate!!.year,
                         minDate!!.monthOfYear - 1,
                         minDate!!.dayOfMonth)
@@ -82,20 +89,23 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
         newDatePickerDialog.setTitle("To")
 
         val oldDatePickerDialog = SpinnerDatePickerDialogBuilder()
-                .context(wtf.context)
+                .context(filterButton.context)
                 .callback { view, year, monthOfYear, dayOfMonth ->
                     oldDate = LocalDate(year, monthOfYear + 1, dayOfMonth)
                     newDatePickerDialog.show()
                 }
-                .defaultDate(localDateTime.year,
-                        localDateTime.monthOfYear - 1,
-                        localDateTime.dayOfMonth)
+                .defaultDate(dateTimeNow.year,
+                        dateTimeNow.monthOfYear - 1,
+                        dateTimeNow.dayOfMonth)
+                .spinnerTheme(R.style.NumberPickerStyle)
+                .dialogTheme(R.style.Base_Theme_AppCompat_Light_Dialog)
                 .minDate(minDate!!.year,
                         minDate!!.monthOfYear - 1,
                         minDate!!.dayOfMonth)
                 .maxDate(maxDate!!.year,
                         maxDate!!.monthOfYear - 1,
                         maxDate!!.dayOfMonth)
+
                 .build()
 
         oldDatePickerDialog.setTitle("From")
@@ -131,7 +141,7 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
 
     fun configureLocations(locations: List<GetLocation>) {
         map.getMapAsync { googleMap ->
-
+            googleMap.clear()
             val polyLines = PolylineOptions()
 
             locations.forEach {

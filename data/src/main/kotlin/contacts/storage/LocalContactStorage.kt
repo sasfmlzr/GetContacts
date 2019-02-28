@@ -8,6 +8,7 @@ import contact.storage.ContactStorage
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
+import org.joda.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -28,8 +29,13 @@ internal class LocalContactStorage @Inject constructor(
         return relay
     }
 
-    override fun getLocationById(id: String): Single<List<GetLocation>> =
-            Single.fromCallable {
-                relay.value!!.find { it.id == id }?.locations
+    override fun getLocationById(id: String,
+                                 fromDate: LocalDate,
+                                 toDate: LocalDate): Single<List<GetLocation>> {
+        return Single.fromCallable {
+            relay.value!!.find { it.id == id }?.locations?.filter {
+                it.date.toLocalDate() >= fromDate && it.date.toLocalDate() <= toDate
             }
+        }
+    }
 }
