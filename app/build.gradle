@@ -81,7 +81,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlinVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroidVersion"
     implementation "com.google.android.gms:play-services-maps:$googleMapVersion"
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation "androidx.recyclerview:recyclerview:$recyclerviewVersion"
 
 
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
@@ -90,5 +90,5 @@ dependencies {
 
     implementation "joda-time:joda-time:$jodaTimeVersion"
 
-    implementation 'com.github.drawers:SpinnerDatePicker:2.0.1'
+    implementation "com.github.drawers:SpinnerDatePicker:$spinnerDatePickerVersion"
 }
