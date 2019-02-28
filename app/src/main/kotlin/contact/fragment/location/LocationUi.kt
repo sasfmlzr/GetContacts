@@ -8,7 +8,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
-import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder
+import com.tsongkha.spinnerdatepicker.DatePickerDialog
 import contact.R
 import contact.api.location.GetLocation
 import contact.architecture.GoogleMapCallback
@@ -31,7 +31,7 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
 
     private var minDate: LocalDateTime? = null
     private var maxDate: LocalDateTime? = null
-    private val dateTimeNow = LocalDate.now()
+    private val dateTimeNow = LocalDateTime.now()
 
     override fun bindViews(view: View): Unbinder = ButterKnife.bind(this, view)
 
@@ -39,8 +39,8 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
         super.onCreate()
         eventSource.onNext(RequestLocationsByIdAndDateEvent(
                 "alexey",
-                dateTimeNow.minusMonths(1),
-                dateTimeNow))
+                dateTimeNow.minusMonths(1).toLocalDate(),
+                dateTimeNow.toLocalDate()))
 
         actionBar?.title = "Last month"
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -64,51 +64,33 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
         var oldDate: LocalDate? = null
         var newDate: LocalDate
 
-        val newDatePickerDialog = SpinnerDatePickerDialogBuilder()
-                .context(filterButton.context)
-                .callback { _, year, monthOfYear, dayOfMonth ->
-                    newDate = LocalDate(year, monthOfYear + 1, dayOfMonth)
-                   eventSource.onNext(RequestLocationsByIdAndDateEvent(
-                           "alexey",
-                           oldDate!!,
-                           newDate))
-                }
-                .spinnerTheme(R.style.CustomNumberPickerStyle)
-                .dialogTheme(R.style.CustomDialogStyle)
-                .defaultDate(dateTimeNow.year,
-                        dateTimeNow.monthOfYear - 1,
-                        dateTimeNow.dayOfMonth)
-                .minDate(minDate!!.year,
-                        minDate!!.monthOfYear - 1,
-                        minDate!!.dayOfMonth)
-                .maxDate(maxDate!!.year,
-                        maxDate!!.monthOfYear - 1,
-                        maxDate!!.dayOfMonth)
-                .build()
+        val newDatePickerDialog: Unit by lazy {
+            extensions!!.showDatePickerDialog(
+                    "To",
+                    dateTimeNow!!,
+                    minDate!!,
+                    maxDate!!,
+                    DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                        newDate = LocalDate(year, monthOfYear + 1, dayOfMonth)
+                        eventSource.onNext(RequestLocationsByIdAndDateEvent(
+                                "alexey",
+                                oldDate!!,
+                                newDate)
+                        )
+                    }
+            )
+        }
 
-        newDatePickerDialog.setTitle("To")
-
-        val oldDatePickerDialog = SpinnerDatePickerDialogBuilder()
-                .context(filterButton.context)
-                .callback { _, year, monthOfYear, dayOfMonth ->
+        extensions?.showDatePickerDialog(
+                "From",
+                dateTimeNow!!,
+                minDate!!,
+                maxDate!!,
+                DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                     oldDate = LocalDate(year, monthOfYear + 1, dayOfMonth)
-                    newDatePickerDialog.show()
+                    newDatePickerDialog.run { }
                 }
-                .defaultDate(dateTimeNow.year,
-                        dateTimeNow.monthOfYear - 1,
-                        dateTimeNow.dayOfMonth)
-                .spinnerTheme(R.style.CustomNumberPickerStyle)
-                .dialogTheme(R.style.CustomDialogStyle)
-                .minDate(minDate!!.year,
-                        minDate!!.monthOfYear - 1,
-                        minDate!!.dayOfMonth)
-                .maxDate(maxDate!!.year,
-                        maxDate!!.monthOfYear - 1,
-                        maxDate!!.dayOfMonth)
-                .build()
-
-        oldDatePickerDialog.setTitle("From")
-        oldDatePickerDialog.show()
+        )
     }
 
     override fun render(model: LocationModel) {
