@@ -13,10 +13,7 @@ import contact.R
 import contact.api.location.GetLocation
 import contact.architecture.GoogleMapCallback
 import contact.architecture.base.ui.Ui
-import contact.pipe.location.LocationEventModel
-import contact.pipe.location.MinMaxDateEventModel
-import contact.pipe.location.RequestLocationsByIdAndDateEvent
-import contact.pipe.location.RequestMinMaxDateEvent
+import contact.pipe.location.*
 import org.joda.time.LocalDate
 import org.joda.time.LocalDateTime
 import javax.inject.Inject
@@ -49,12 +46,13 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
         when (model.eventModel) {
             is LocationEventModel -> {
                 eventSource.onNext(RequestMinMaxDateEvent(model.eventModel.locations))
-                configureLocations(model.eventModel.locations, "wow")
+                configureLocations(model.eventModel.locations)
             }
             is MinMaxDateEventModel -> {
                 minDate = model.eventModel.minDate
                 maxDate = model.eventModel.maxDate
             }
+            is ToolbarEventModel -> actionBar?.title = model.eventModel.title
         }
     }
 
@@ -110,7 +108,7 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
         )
     }
 
-    private fun configureLocations(locations: List<GetLocation>, title: String) {
+    private fun configureLocations(locations: List<GetLocation>) {
         map.getMapAsync { googleMap ->
             googleMap.clear()
             val polyLines = PolylineOptions()
@@ -128,7 +126,6 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
             googleMap.moveCamera(CameraUpdateFactory.zoomTo(15.0f))
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(lastPlace))
         }
-        actionBar?.title = title
     }
 
 }

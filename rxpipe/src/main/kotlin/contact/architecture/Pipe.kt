@@ -1,5 +1,6 @@
 package contact.architecture
 
+import contact.pipe.location.ToolbarEventModel
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 
@@ -20,3 +21,9 @@ internal fun Observable<EventModel>.appendLoadingResults() =
 internal fun Observable<EventModel>.appendLoadingAndErrorResults() =
         appendErrorResults()
                 .appendLoadingResults()
+
+internal fun Observable<EventModel>.appendToolbarResults(title : String) =
+        onErrorResumeNext { _: Throwable ->
+            Observable.empty<EventModel>()
+        }
+                .concatWith(Observable.just(ToolbarEventModel(title)))

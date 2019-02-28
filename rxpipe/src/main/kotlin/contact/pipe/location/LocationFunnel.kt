@@ -8,6 +8,7 @@ class LocationFunnel(initState: LocationState) : Funnel<LocationState>(initState
         return when (eventModel) {
             is LocationEventModel -> state.copy(eventModel = eventModel)
             is MinMaxDateEventModel -> state.copy(eventModel = eventModel)
+            is ToolbarEventModel -> state.copy(eventModel = eventModel)
             else -> state
         }
     }

@@ -12,3 +12,6 @@ data class MinMaxDateEventModel(
         val minDate: LocalDateTime,
         val maxDate: LocalDateTime
 ) : EventModel()
+
+data class ToolbarEventModel(
+        val title: String) : EventModel()
