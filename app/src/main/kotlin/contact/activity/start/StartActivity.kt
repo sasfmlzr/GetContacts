@@ -37,7 +37,7 @@ class StartActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        retryButton = findViewById(R.id.buttotRetry)
+        retryButton = findViewById(R.id.buttonRetry)
         retryButton.setOnClickListener {
             initializeApp()
         }

@@ -17,7 +17,7 @@ abstract class Ui<in UM : UiModel> {
     protected var toolbar: Toolbar? = null
     protected lateinit var runtimePermissions: RuntimePermissions
 
-    private lateinit var unbinder: Unbinder
+    private lateinit var unBinder: Unbinder
 
     fun init(toolkit: UiToolkit) {
         eventSource = toolkit.eventSource
@@ -25,7 +25,7 @@ abstract class Ui<in UM : UiModel> {
         runtimePermissions = toolkit.runtimePermissions
         actionBar = toolkit.actionBar
         toolbar = toolkit.toolbar
-        unbinder = bindViews(toolkit.view)
+        unBinder = bindViews(toolkit.view)
         onCreate()
     }
 
@@ -37,7 +37,7 @@ abstract class Ui<in UM : UiModel> {
 
     @CallSuper
     open fun onDestroy() {
-        unbinder.unbind()
+        unBinder.unbind()
     }
 
     abstract fun render(model: UM)

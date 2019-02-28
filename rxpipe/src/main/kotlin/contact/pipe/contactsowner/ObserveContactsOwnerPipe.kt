@@ -12,7 +12,7 @@ class RequestObserveContactsOwnerEvent : ViewEvent
 internal class ObserveContactsOwnerPipe @Inject constructor(
         private val observeAllContacts: ObserveAllContactsUseCase
 ) : Pipe {
-    override fun apply(upstream: Observable<ViewEvent>) =
+    override fun apply(upstream: Observable<ViewEvent>): Observable<EventModel> =
             upstream.ofType(RequestObserveContactsOwnerEvent::class.java)
                     .flatMap {
                         observeAllContacts.buildUseCaseObservable(Unit)

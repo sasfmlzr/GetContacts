@@ -2,13 +2,10 @@ package contact.di.core
 
 import android.app.Application
 import android.content.Context
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import dagger.Module
-import dagger.Provides
 import contact.architecture.logging.AndroidLogger
 import contact.architecture.logging.Logger
-import javax.inject.Named
+import dagger.Module
+import dagger.Provides
 import javax.inject.Singleton
 
 @Module

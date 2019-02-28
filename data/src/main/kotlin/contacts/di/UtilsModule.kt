@@ -9,6 +9,6 @@ import dagger.Module
 internal abstract class UtilsModule {
 
     @Binds
-    internal abstract fun locationUlils(localLocationUtils: LocalLocationUtils): LocationUtils
+    internal abstract fun locationUtils(localLocationUtils: LocalLocationUtils): LocationUtils
 
 }
