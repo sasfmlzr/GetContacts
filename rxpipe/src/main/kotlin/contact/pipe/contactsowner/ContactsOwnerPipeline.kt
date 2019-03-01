@@ -8,6 +8,9 @@ class ContactsOwnerPipeline @Inject constructor() : Pipeline() {
 
     @Inject
     internal lateinit var observeContactsOwnerPipe: ObserveContactsOwnerPipe
+    @Inject
+    internal lateinit var routeToNavigatorFragmentPipe: RouteToNavigatorFragmentPipe
 
-    override fun create(): List<Pipe> = listOf(observeContactsOwnerPipe)
+    override fun create(): List<Pipe> = listOf(observeContactsOwnerPipe,
+            routeToNavigatorFragmentPipe)
 }

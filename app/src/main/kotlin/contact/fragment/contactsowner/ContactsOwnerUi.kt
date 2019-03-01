@@ -2,7 +2,6 @@ package contact.fragment.contactsowner
 
 import android.content.Context
 import android.view.View
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -12,12 +11,12 @@ import butterknife.Unbinder
 import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager
 import contact.R
 import contact.api.model.contact.OwnerContacts
-import contact.architecture.Navigator
 import contact.architecture.base.ui.Ui
 import contact.architecture.logging.Logger
 import contact.fragment.contactsowner.list.ContactsOwnerListAdapter
 import contact.pipe.contactsowner.ObserveContactsOwnerEventModel
 import contact.pipe.contactsowner.RequestObserveContactsOwnerEvent
+import contact.pipe.contactsowner.RouteToNavigatorFragmentEvent
 import javax.inject.Inject
 
 class ContactsOwnerUi @Inject constructor(
@@ -53,8 +52,7 @@ class ContactsOwnerUi @Inject constructor(
         val adapter = expMgr.createWrappedAdapter(
                 ContactsOwnerListAdapter(listOwnerContacts) { nameOwner ->
                     logger.d("WTF", "ROUTE TO LOCATION $nameOwner")
-                    Navigator(contactRV.findNavController())
-                            .navigateContactOwnerToLocationFragment(nameOwner)
+                    eventSource.onNext(RouteToNavigatorFragmentEvent(nameOwner))
                 })
 
         contactRV.adapter = adapter

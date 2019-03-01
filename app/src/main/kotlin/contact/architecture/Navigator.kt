@@ -1,16 +1,21 @@
 package contact.architecture
 
-import contact.fragment.contactsowner.ContactsOwnerFragmentDirections
-
 import androidx.navigation.NavController
+import javax.inject.Inject
 
-class Navigator(private val router: NavController) : Router {
+class Navigator @Inject constructor() {
 
-    override fun navigateContactOwnerToLocationFragment(id: String) {
-        val direction = ContactsOwnerFragmentDirections
-                .actionShowLocationFragment()
-        direction.arguments.putString("nameOwner", id)
-        router.navigate(direction)
+    private var nav: NavController? = null
+
+    fun setNavigator(nav: NavController) {
+        this.nav = nav
     }
 
+    fun getNavigator(): NavController {
+        return nav!!
+    }
+
+    fun clearNavigator() {
+        this.nav = null
+    }
 }

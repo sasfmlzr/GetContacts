@@ -9,6 +9,7 @@ import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.SupportMapFragment
 import contact.R
 import contact.architecture.*
@@ -34,6 +35,8 @@ abstract class BaseFragment<S : ViewState, M : UiModel, out U : Ui<M>>
 
     @Inject
     lateinit var logger: Logger
+    @Inject
+    lateinit var navigator: Navigator
 
     protected abstract val layoutId: Int
     protected abstract val pipeline: Pipeline
@@ -56,6 +59,8 @@ abstract class BaseFragment<S : ViewState, M : UiModel, out U : Ui<M>>
                 .also { plumbing = it }
                 .run { subscribe({}, {}) }
                 .also { defaultDisposable.add(it) }
+
+        navigator.setNavigator(findNavController())
     }
 
     @CallSuper
@@ -115,6 +120,7 @@ abstract class BaseFragment<S : ViewState, M : UiModel, out U : Ui<M>>
     override fun onDestroy() {
         super.onDestroy()
         defaultDisposable.clear()
+        navigator.clearNavigator()
     }
 
     private val runtimePermissions = object : RuntimePermissions {
