@@ -3,6 +3,7 @@ package contact.fragment.location
 import contact.R
 import contact.architecture.base.BaseFragment
 import contact.di.core.FragmentComponent
+import contact.pipe.location.BundleModel
 import contact.pipe.location.LocationFunnel
 import contact.pipe.location.LocationPipeline
 import contact.pipe.location.LocationState
@@ -19,7 +20,10 @@ class LocationFragment : BaseFragment<LocationState, LocationModel, LocationUi>(
     @Inject
     override lateinit var ui: LocationUi
 
-    override fun funnel(): LocationFunnel = LocationFunnel(LocationState.idle())
+    override fun funnel(): LocationFunnel {
+        val bundleModel = BundleModel(arguments?.getString("idNameOwner") ?: "")
+        return LocationFunnel(LocationState.idle(bundleModel))
+    }
 
     override fun inject(component: FragmentComponent) = component.inject(this)
 }

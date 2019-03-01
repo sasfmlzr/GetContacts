@@ -15,3 +15,6 @@ data class MinMaxDateEventModel(
 
 data class ToolbarEventModel(
         val title: String) : EventModel()
+
+data class BundleModel(
+        val nameOwner: String) : EventModel()

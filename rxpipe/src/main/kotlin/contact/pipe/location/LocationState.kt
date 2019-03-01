@@ -7,6 +7,6 @@ data class LocationState(
         val eventModel: EventModel? = null
 ) : ViewState {
     companion object {
-        fun idle() = LocationState()
+        fun idle(eventModel: EventModel) = LocationState(eventModel)
     }
 }

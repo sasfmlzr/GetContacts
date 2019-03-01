@@ -7,9 +7,7 @@ class NavigationRouter @Inject constructor(private val router: Navigator) : Rout
 
     override fun navigateContactOwnerToLocationFragment(id: String) {
         val direction = ContactsOwnerFragmentDirections
-                .actionShowLocationFragment()
-        direction.arguments.putString("nameOwner", id)
-
+                .actionShowLocationFragment(id)
         router.getNavigator().navigate(direction)
     }
 }

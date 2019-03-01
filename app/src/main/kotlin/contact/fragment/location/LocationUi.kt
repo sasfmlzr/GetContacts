@@ -26,6 +26,7 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
         map = supportMapFragment
     }
 
+    private var nameOwner = ""
     private lateinit var filterButton: View
     private lateinit var minDate: LocalDateTime
     private lateinit var maxDate: LocalDateTime
@@ -35,15 +36,19 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
 
     override fun onCreate() {
         super.onCreate()
-        eventSource.onNext(RequestLocationsByIdAndDateEvent(
-                "alexey",
-                dateTimeNow.minusMonths(1).toLocalDate(),
-                dateTimeNow.toLocalDate()))
         configureToolbar()
     }
 
     override fun render(model: LocationModel) {
         when (model.eventModel) {
+            is BundleModel -> {
+                nameOwner = model.eventModel.nameOwner
+
+                eventSource.onNext(RequestLocationsByIdAndDateEvent(
+                        nameOwner,
+                        dateTimeNow.minusMonths(1).toLocalDate(),
+                        dateTimeNow.toLocalDate()))
+            }
             is LocationEventModel -> {
                 eventSource.onNext(RequestMinMaxDateEvent(model.eventModel.locations))
                 configureLocations(model.eventModel.locations)
@@ -88,7 +93,7 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
                     DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                         newDate = LocalDate(year, monthOfYear + 1, dayOfMonth)
                         eventSource.onNext(RequestLocationsByIdAndDateEvent(
-                                "alexey",
+                                nameOwner,
                                 oldDate!!,
                                 newDate)
                         )
