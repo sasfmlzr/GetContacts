@@ -14,8 +14,4 @@ class Navigator @Inject constructor() {
     fun getNavigator(): NavController {
         return nav!!
     }
-
-    fun clearNavigator() {
-        this.nav = null
-    }
 }

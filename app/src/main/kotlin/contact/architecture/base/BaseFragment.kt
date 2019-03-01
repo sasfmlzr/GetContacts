@@ -59,14 +59,13 @@ abstract class BaseFragment<S : ViewState, M : UiModel, out U : Ui<M>>
                 .also { plumbing = it }
                 .run { subscribe({}, {}) }
                 .also { defaultDisposable.add(it) }
-
-        navigator.setNavigator(findNavController())
     }
 
     @CallSuper
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        navigator.setNavigator(findNavController())
         return inflater.inflate(layoutId, container, false)
     }
 
@@ -120,7 +119,6 @@ abstract class BaseFragment<S : ViewState, M : UiModel, out U : Ui<M>>
     override fun onDestroy() {
         super.onDestroy()
         defaultDisposable.clear()
-        navigator.clearNavigator()
     }
 
     private val runtimePermissions = object : RuntimePermissions {
