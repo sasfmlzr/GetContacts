@@ -81,6 +81,13 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
     }
 
     private fun showFilter() {
+        if (minDate.year == maxDate.year &&
+                minDate.monthOfYear == maxDate.monthOfYear &&
+                minDate.dayOfMonth == maxDate.dayOfMonth) {
+            extensions?.showMessage("Too few values")
+            return
+        }
+
         var oldDate: LocalDate? = null
         var newDate: LocalDate
 
