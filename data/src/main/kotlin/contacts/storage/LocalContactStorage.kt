@@ -2,6 +2,7 @@ package contacts.storage
 
 import com.jakewharton.rxrelay2.BehaviorRelay
 import contact.api.location.GetLocation
+import contact.api.model.contact.Contact
 import contact.api.model.contact.OwnerContacts
 import contact.repository.ContactRepository
 import contact.storage.ContactStorage
@@ -21,8 +22,12 @@ internal class LocalContactStorage @Inject constructor(
 
     override fun fetch(): Completable =
             contactRepository.getAllOwnerContacts()
-                    .map {
-                        relay.accept(it)
+                    .map {list ->
+                        list.forEach {ownerContacts ->
+                            ownerContacts.contacts.sortWith(compareBy(Contact::name))
+                        }
+                        val sortedList = list.sortedWith(compareBy(OwnerContacts::id))
+                        relay.accept(sortedList)
                     }.ignoreElement()
 
     override fun getAll(): Observable<List<OwnerContacts>> {
