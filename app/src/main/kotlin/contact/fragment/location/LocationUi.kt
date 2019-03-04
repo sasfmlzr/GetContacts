@@ -121,8 +121,8 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
             locations.forEach {
                 val place = LatLng(it.latitude, it.longitude)
                 polyLines.add(place)
-                googleMap.addMarker(MarkerOptions().position(place).title(it.date.toString()))
-
+                googleMap.addMarker(MarkerOptions().position(place)
+                        .title(it.date.toString("dd.MM.yyyy HH:mm:ss")))
             }
 
             val lastPlace = LatLng(locations.last().latitude, locations.last().longitude)
@@ -132,5 +132,4 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(lastPlace))
         }
     }
-
 }
