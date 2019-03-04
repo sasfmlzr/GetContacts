@@ -11,7 +11,7 @@ import contact.api.model.contact.Contact
 import contact.api.model.contact.OwnerContacts
 
 class ContactsOwnerListAdapter(contactOwners: List<OwnerContacts>,
-                               private val onClickLookLocation: (String) -> Unit) :
+                               private val onClickLookLocation: (String, Int) -> Unit) :
         AbstractExpandableItemAdapter
         <ContactsOwnerListAdapter.ParentViewHolder,
                 ContactsOwnerListAdapter.ChildViewHolder>() {
@@ -86,7 +86,8 @@ class ContactsOwnerListAdapter(contactOwners: List<OwnerContacts>,
 
         if (childPosition == 0) {
             holder.itemView.setOnClickListener {
-                onClickLookLocation(myGroupItem[groupPosition].ownerContacts.id)
+                onClickLookLocation(myGroupItem[groupPosition].ownerContacts.id,
+                        myGroupItem[groupPosition].ownerContacts.locations.size)
             }
         }
     }

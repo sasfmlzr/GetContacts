@@ -12,7 +12,6 @@ import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandab
 import contact.R
 import contact.api.model.contact.OwnerContacts
 import contact.architecture.base.ui.Ui
-import contact.architecture.logging.Logger
 import contact.fragment.contactsowner.list.ContactsOwnerListAdapter
 import contact.pipe.contactsowner.ObserveContactsOwnerEventModel
 import contact.pipe.contactsowner.RequestObserveContactsOwnerEvent
@@ -20,8 +19,7 @@ import contact.pipe.contactsowner.RouteToNavigatorFragmentEvent
 import javax.inject.Inject
 
 class ContactsOwnerUi @Inject constructor(
-        private val context: Context,
-        private val logger: Logger
+        private val context: Context
 ) : Ui<ContactsOwnerModel>() {
 
     @BindView(R.id.recycler_view_owner_contacts)
@@ -50,9 +48,12 @@ class ContactsOwnerUi @Inject constructor(
 
     private fun configureAdapter(listOwnerContacts: List<OwnerContacts>) {
         val adapter = expMgr.createWrappedAdapter(
-                ContactsOwnerListAdapter(listOwnerContacts) { nameOwner ->
-                    logger.d("WTF", "ROUTE TO LOCATION $nameOwner")
-                    eventSource.onNext(RouteToNavigatorFragmentEvent(nameOwner))
+                ContactsOwnerListAdapter(listOwnerContacts) { nameOwner, locationSize ->
+                    if (locationSize > 0) {
+                        eventSource.onNext(RouteToNavigatorFragmentEvent(nameOwner))
+                    } else {
+                        extensions?.showMessage("No locations")
+                    }
                 })
 
         contactRV.adapter = adapter
