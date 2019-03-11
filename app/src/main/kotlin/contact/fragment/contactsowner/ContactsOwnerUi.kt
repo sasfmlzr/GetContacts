@@ -11,6 +11,7 @@ import butterknife.Unbinder
 import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager
 import contact.R
 import contact.api.model.contact.OwnerContacts
+import contact.architecture.base.ui.BaseModel
 import contact.architecture.base.ui.Ui
 import contact.fragment.contactsowner.list.ContactsOwnerListAdapter
 import contact.pipe.contactsowner.ObserveContactsOwnerEventModel
@@ -20,7 +21,7 @@ import javax.inject.Inject
 
 class ContactsOwnerUi @Inject constructor(
         private val context: Context
-) : Ui<ContactsOwnerModel>() {
+) : Ui() {
 
     @BindView(R.id.recycler_view_owner_contacts)
     lateinit var contactRV: RecyclerView
@@ -38,7 +39,7 @@ class ContactsOwnerUi @Inject constructor(
         (contactRV.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
     }
 
-    override fun render(model: ContactsOwnerModel) {
+    override fun render(model: BaseModel) {
         when (model.eventModel) {
             is ObserveContactsOwnerEventModel -> {
                 val contacts = model.eventModel.contacts!!

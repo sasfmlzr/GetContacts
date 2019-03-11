@@ -8,7 +8,7 @@ import contact.pipe.contactsowner.ContactsOwnerPipeline
 import contact.pipe.contactsowner.ContactsOwnerState
 import javax.inject.Inject
 
-class ContactsOwnerFragment : BaseFragment<ContactsOwnerState, ContactsOwnerModel, ContactsOwnerUi>() {
+class ContactsOwnerFragment : BaseFragment<ContactsOwnerState, ContactsOwnerUi>() {
 
     override val layoutId: Int = R.layout.fragment_contacts_owner
 

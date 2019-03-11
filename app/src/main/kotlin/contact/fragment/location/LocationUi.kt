@@ -12,13 +12,14 @@ import com.tsongkha.spinnerdatepicker.DatePickerDialog
 import contact.R
 import contact.api.location.GetLocation
 import contact.architecture.GoogleMapCallback
+import contact.architecture.base.ui.BaseModel
 import contact.architecture.base.ui.Ui
 import contact.pipe.location.*
 import org.joda.time.LocalDate
 import org.joda.time.LocalDateTime
 import javax.inject.Inject
 
-class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback {
+class LocationUi @Inject constructor() : Ui(), GoogleMapCallback {
 
     private lateinit var map: SupportMapFragment
 
@@ -39,7 +40,7 @@ class LocationUi @Inject constructor() : Ui<LocationModel>(), GoogleMapCallback 
         configureToolbar()
     }
 
-    override fun render(model: LocationModel) {
+    override fun render(model: BaseModel) {
         when (model.eventModel) {
             is BundleModel -> {
                 nameOwner = model.eventModel.nameOwner

@@ -9,7 +9,7 @@ import contact.pipe.location.LocationPipeline
 import contact.pipe.location.LocationState
 import javax.inject.Inject
 
-class LocationFragment : BaseFragment<LocationState, LocationModel, LocationUi>() {
+class LocationFragment : BaseFragment<LocationState, LocationUi>() {
 
     override val layoutId: Int = R.layout.fragment_location
 

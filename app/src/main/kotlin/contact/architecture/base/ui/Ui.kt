@@ -9,7 +9,7 @@ import contact.architecture.EventSource
 import contact.architecture.Extensions
 import contact.architecture.RuntimePermissions
 
-abstract class Ui<in UM : UiModel> {
+abstract class Ui {
 
     protected lateinit var eventSource: EventSource
     protected var extensions: Extensions? = null
@@ -40,6 +40,6 @@ abstract class Ui<in UM : UiModel> {
         unBinder.unbind()
     }
 
-    abstract fun render(model: UM)
+    abstract fun render(model: BaseModel)
 
 }

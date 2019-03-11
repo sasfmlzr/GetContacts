@@ -13,8 +13,8 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.SupportMapFragment
 import contact.R
 import contact.architecture.*
+import contact.architecture.base.ui.BaseModel
 import contact.architecture.base.ui.Ui
-import contact.architecture.base.ui.UiModel
 import contact.architecture.base.ui.UiToolkit
 import contact.architecture.logging.Logger
 import contact.di.core.FragmentComponent
@@ -26,7 +26,7 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
-abstract class BaseFragment<S : ViewState, M : UiModel, out U : Ui<M>>
+abstract class BaseFragment<S : ViewState, out U : Ui>
     : Fragment() {
 
     companion object {
@@ -40,13 +40,13 @@ abstract class BaseFragment<S : ViewState, M : UiModel, out U : Ui<M>>
 
     protected abstract val layoutId: Int
     protected abstract val pipeline: Pipeline
-    protected abstract val presenter: Presenter<S, M>
+    protected abstract val presenter: Presenter<S>
     protected abstract val ui: U
     protected abstract fun funnel(): Funnel<S>
     protected abstract fun inject(component: FragmentComponent)
 
     private val eventSource = PublishSubject.create<ViewEvent>()
-    private lateinit var plumbing: Observable<M>
+    private lateinit var plumbing: Observable<BaseModel>
     private val defaultDisposable = CompositeDisposable()
     private val uiDisposable = CompositeDisposable()
 
