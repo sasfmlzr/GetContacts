@@ -5,7 +5,7 @@ import contact.storage.ContactStorage
 import contact.usecase.base.ObservableUseCase
 import javax.inject.Inject
 
-class ObserveAllContactsUseCase @Inject constructor(
+open class ObserveAllContactsUseCase @Inject constructor(
         private val contactsStorage: ContactStorage
 ) : ObservableUseCase<Unit, List<OwnerContacts>>() {
 
