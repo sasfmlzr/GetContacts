@@ -4,6 +4,7 @@ import contact.api.location.GetLocation
 import contact.architecture.EventModel
 import contact.architecture.Pipe
 import contact.architecture.ViewEvent
+import contact.architecture.appendErrorResults
 import contact.usecase.feature.GetMinMaxDateUseCase
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -21,5 +22,6 @@ internal class GetMinMaxDatePipe @Inject constructor(
                                 .map<EventModel> { dates ->
                                     MinMaxDateEventModel(dates.first, dates.second)
                                 }.toObservable()
+                                .appendErrorResults()
                     }
 }

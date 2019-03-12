@@ -8,29 +8,28 @@ import javax.inject.Inject
 
 class LocalLocationUtils @Inject constructor() : LocationUtils {
 
-    private lateinit var minDate: LocalDateTime
-    private lateinit var maxDate: LocalDateTime
-
     override fun getMinMaxDate(locations: List<GetLocation>):
-            Single<Pair<LocalDateTime, LocalDateTime>> {
-
-        locations.forEach {
-            if (!::minDate.isInitialized) {
-                minDate = it.date
+            Single<Pair<LocalDateTime, LocalDateTime>> = Single.fromCallable {
+            try {
+                executeParseMinMaxDateFromLocation(locations)
+            } catch (e: Exception) {
+                throw RuntimeException("Location could not be empty")
             }
+        }
+
+
+    private fun executeParseMinMaxDateFromLocation(locations: List<GetLocation>):
+            Pair<LocalDateTime, LocalDateTime> {
+        var minDate: LocalDateTime = locations.first().date
+        var maxDate: LocalDateTime = locations.first().date
+        locations.forEach {
             if (it.date < minDate) {
                 minDate = it.date
-            }
-
-            if (!::maxDate.isInitialized) {
-                maxDate = it.date
             }
             if (it.date > maxDate) {
                 maxDate = it.date
             }
         }
-        return Single.fromCallable {
-            Pair(minDate, maxDate)
-        }
+        return Pair(minDate, maxDate)
     }
 }
