@@ -17,7 +17,6 @@ class LocalLocationUtils @Inject constructor() : LocationUtils {
             }
         }
 
-
     private fun executeParseMinMaxDateFromLocation(locations: List<GetLocation>):
             Pair<LocalDateTime, LocalDateTime> {
         var minDate: LocalDateTime = locations.first().date
