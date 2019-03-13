@@ -1,7 +1,7 @@
-package contacts.di
+package contact.di
 
 import contact.storage.ContactStorage
-import contacts.storage.LocalContactStorage
+import contact.storage.LocalContactStorage
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton

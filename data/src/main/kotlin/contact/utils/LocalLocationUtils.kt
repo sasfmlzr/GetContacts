@@ -1,7 +1,6 @@
-package contacts.utils
+package contact.utils
 
 import contact.api.location.GetLocation
-import contact.utils.LocationUtils
 import io.reactivex.Single
 import org.joda.time.LocalDateTime
 import javax.inject.Inject

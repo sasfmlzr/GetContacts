@@ -1,6 +1,6 @@
 package contact.di.core
 
-import contacts.di.DataModule
+import contact.di.DataModule
 import dagger.Component
 import javax.inject.Singleton
 

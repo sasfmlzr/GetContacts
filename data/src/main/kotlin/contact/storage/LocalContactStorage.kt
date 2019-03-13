@@ -1,11 +1,10 @@
-package contacts.storage
+package contact.storage
 
 import com.jakewharton.rxrelay2.BehaviorRelay
 import contact.api.location.GetLocation
 import contact.api.model.contact.Contact
 import contact.api.model.contact.OwnerContacts
 import contact.repository.ContactRepository
-import contact.storage.ContactStorage
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single

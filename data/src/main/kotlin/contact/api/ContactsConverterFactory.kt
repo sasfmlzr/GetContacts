@@ -1,4 +1,4 @@
-package contacts.api
+package contact.api
 
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer

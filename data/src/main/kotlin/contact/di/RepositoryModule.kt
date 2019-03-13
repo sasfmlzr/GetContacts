@@ -1,7 +1,7 @@
-package contacts.di
+package contact.di
 
 import contact.repository.ContactRepository
-import contacts.repository.NetworkContactRepository
+import contact.repository.NetworkContactRepository
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton

@@ -1,7 +1,7 @@
-package contacts.di
+package contact.di
 
 import contact.utils.LocationUtils
-import contacts.utils.LocalLocationUtils
+import contact.utils.LocalLocationUtils
 import dagger.Binds
 import dagger.Module
 

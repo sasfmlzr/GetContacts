@@ -1,7 +1,7 @@
-package contacts.di
+package contact.di
 
-import contacts.api.ContactsApi
-import contacts.api.ContactsConverterFactory
+import contact.api.ContactsApi
+import contact.api.ContactsConverterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.HttpUrl

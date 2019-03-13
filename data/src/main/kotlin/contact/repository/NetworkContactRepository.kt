@@ -1,8 +1,7 @@
-package contacts.repository
+package contact.repository
 
 import contact.api.model.contact.OwnerContacts
-import contact.repository.ContactRepository
-import contacts.api.ContactsApi
+import contact.api.ContactsApi
 import io.reactivex.Single
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package contacts.di
+package contact.di
 
 import dagger.Module
 

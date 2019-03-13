@@ -1,4 +1,4 @@
-package contacts.api
+package contact.api
 
 import contact.api.location.GetLocation
 import contact.api.model.contact.OwnerContacts
