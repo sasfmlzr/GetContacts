@@ -1,9 +1,6 @@
 package contact.pipe.location
 
-import contact.architecture.EventModel
-import contact.architecture.Pipe
-import contact.architecture.ViewEvent
-import contact.architecture.appendToolbarResults
+import contact.architecture.*
 import contact.usecase.feature.ObserveLocationsByIdUseCase
 import io.reactivex.Observable
 import org.joda.time.LocalDate
@@ -31,5 +28,6 @@ internal class ObserveLocationsByIdPipe @Inject constructor(
                                 }.appendToolbarResults("From ${event
                                         .fromDate.toString("yyyy.MM.dd")} to ${event
                                         .toDate.toString("yyyy.MM.dd")}")
+                                .appendErrorResults()
                     }
 }

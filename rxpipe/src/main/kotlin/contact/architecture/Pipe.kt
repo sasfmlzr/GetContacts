@@ -8,7 +8,7 @@ internal typealias Pipe = ObservableTransformer<ViewEvent, EventModel>
 
 internal fun Observable<EventModel>.appendErrorResults() =
         onErrorResumeNext { e: Throwable ->
-            Observable.just(ErrorEventModel(e), HideErrorEventModel())
+            Observable.just(ErrorEventModel(e))
         }
 
 internal fun Observable<EventModel>.appendLoadingResults() =
@@ -23,7 +23,4 @@ internal fun Observable<EventModel>.appendLoadingAndErrorResults() =
                 .appendLoadingResults()
 
 internal fun Observable<EventModel>.appendToolbarResults(title : String) =
-        onErrorResumeNext { _: Throwable ->
-            Observable.empty<EventModel>()
-        }
-                .concatWith(Observable.just(ToolbarEventModel(title)))
+        concatWith(Observable.just(ToolbarEventModel(title)))

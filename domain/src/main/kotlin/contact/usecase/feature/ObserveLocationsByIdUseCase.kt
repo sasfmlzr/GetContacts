@@ -6,7 +6,7 @@ import contact.usecase.base.SingleUseCase
 import org.joda.time.LocalDate
 import javax.inject.Inject
 
-class ObserveLocationsByIdUseCase @Inject constructor(
+open class ObserveLocationsByIdUseCase @Inject constructor(
         private val contactsStorage: ContactStorage
 ) : SingleUseCase<ObserveLocationsByIdUseCase.Params, List<GetLocation>>() {
 
