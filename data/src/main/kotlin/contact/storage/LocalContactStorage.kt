@@ -21,8 +21,8 @@ internal class LocalContactStorage @Inject constructor(
 
     override fun fetch(): Completable =
             contactRepository.getAllOwnerContacts()
-                    .map {list ->
-                        list.forEach {ownerContacts ->
+                    .map { list ->
+                        list.forEach { ownerContacts ->
                             ownerContacts.contacts.sortWith(compareBy(Contact::name))
                         }
                         val sortedList = list.sortedWith(compareBy(OwnerContacts::id))
@@ -37,9 +37,15 @@ internal class LocalContactStorage @Inject constructor(
                                  fromDate: LocalDate,
                                  toDate: LocalDate): Single<List<GetLocation>> {
         return Single.fromCallable {
-            relay.value!!.find { it.id == id }?.locations?.filter {
-                it.date.toLocalDate() >= fromDate && it.date.toLocalDate() <= toDate
-            }
+            findLocationById(id, fromDate, toDate)
         }
+    }
+
+    private fun findLocationById(id: String,
+                                 fromDate: LocalDate,
+                                 toDate: LocalDate): List<GetLocation> {
+        return relay.value?.find { it.id == id }?.locations?.filter {
+            it.date.toLocalDate() >= fromDate && it.date.toLocalDate() <= toDate
+        } ?: throw RuntimeException("Location not find")
     }
 }
