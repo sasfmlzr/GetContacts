@@ -11,7 +11,7 @@ class LocationFunnel(initState: LocationState) : Funnel<LocationState>(initState
             is MinMaxDateEventModel -> state.copy(eventModel = eventModel)
             is ToolbarEventModel -> state.copy(eventModel = eventModel)
             is ErrorEventModel -> state.copy(eventModel = eventModel)
-            else -> state
+            else -> state.copy(eventModel = null)
         }
     }
 }
