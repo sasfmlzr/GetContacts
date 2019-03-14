@@ -6,15 +6,15 @@ import org.joda.time.LocalDateTime
 
 data class LocationEventModel(
         val locations: List<GetLocation>
-) : EventModel()
+) : EventModel
 
 data class MinMaxDateEventModel(
         val minDate: LocalDateTime,
         val maxDate: LocalDateTime
-) : EventModel()
+) : EventModel
 
 data class ToolbarEventModel(
-        val title: String) : EventModel()
+        val title: String) : EventModel
 
 data class BundleModel(
-        val nameOwner: String) : EventModel()
+        val nameOwner: String) : EventModel

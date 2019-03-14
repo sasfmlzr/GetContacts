@@ -1,17 +1,14 @@
 package contact.repository
 
 import contact.api.ContactsApi
-import contact.api.model.contact.Contact
 import contact.api.model.contact.OwnerContacts
 import io.reactivex.Single
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.BDDMockito
 import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
-import java.lang.RuntimeException
 
 @RunWith(MockitoJUnitRunner::class)
 class NetworkContactRepositoryTest {

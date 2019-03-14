@@ -5,4 +5,4 @@ import contact.architecture.EventModel
 
 data class ObserveContactsOwnerEventModel(
         val contacts: List<OwnerContacts>? = listOf()
-) : EventModel()
+) : EventModel

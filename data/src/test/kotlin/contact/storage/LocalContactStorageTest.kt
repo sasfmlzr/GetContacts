@@ -24,12 +24,13 @@ class LocalContactStorageTest {
     @Mock
     lateinit var contactRepository: ContactRepository
 
+    private val testContact = Contact("test", "0000")
     private val list: List<OwnerContacts> = listOf(OwnerContacts("aaa",
-            mutableListOf(Contact("asd"), Contact("sss")),
+            mutableListOf(testContact, Contact("sss")),
             mutableListOf(GetLocation(1.0, 2.0, LocalDateTime()),
                     GetLocation(1.0, 2.0, LocalDateTime().minusMonths(1)))),
             OwnerContacts("bbb",
-                    mutableListOf(Contact("asd"), Contact("sss")),
+                    mutableListOf(Contact("asd", "2333"), Contact("sss")),
                     mutableListOf(GetLocation(1.0, 2.0, LocalDateTime()))),
             OwnerContacts("aba",
                     mutableListOf(Contact("asd"), Contact("sss")),
@@ -43,6 +44,8 @@ class LocalContactStorageTest {
         }
         val sortedList = list.sortedWith(compareBy(OwnerContacts::id))
 
+        Assert.assertEquals(testContact.name, result.blockingGet().first().contacts.first().name)
+        Assert.assertEquals(testContact.phone, result.blockingGet().first().contacts.first().phone)
         given(contactRepository.getAllOwnerContacts()).willReturn(result)
         localContactStorage.fetch().test()
                 .assertComplete()

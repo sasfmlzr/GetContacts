@@ -22,3 +22,7 @@
 -keepclassmembers class * extends androidx.work.Worker {
     public <init>(android.content.Context,androidx.work.WorkerParameters);
 }
+
+-keep class org.joda.** { *; }
+-dontwarn org.joda.convert.**
+-dontwarn org.joda.**

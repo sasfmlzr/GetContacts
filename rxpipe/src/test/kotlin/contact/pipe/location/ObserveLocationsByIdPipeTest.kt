@@ -8,6 +8,7 @@ import contact.usecase.feature.ObserveLocationsByIdUseCase
 import io.reactivex.Observable
 import org.joda.time.LocalDate
 import org.joda.time.LocalDateTime
+import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.InjectMocks
@@ -30,16 +31,23 @@ internal class ObserveLocationsByIdPipeTest {
 
         observeLocationsById.willReturn(params, result)
 
+        val locationEventModel = LocationEventModel(result)
+        val toolbarString = "From ${params
+                .fromDate.toString("yyyy.MM.dd")} to ${params
+                .toDate.toString("yyyy.MM.dd")}"
+        val toolbarEventModel = ToolbarEventModel(toolbarString)
+
         Observable.just(RequestLocationsByIdAndDateEvent(params.id, params.fromDate, params.toDate))
                 .compose(pipe)
                 .test()
                 .assertValues(
-                        LocationEventModel(result),
-                        ToolbarEventModel("From ${params
-                                .fromDate.toString("yyyy.MM.dd")} to ${params
-                                .toDate.toString("yyyy.MM.dd")}")
+                        locationEventModel,
+                        toolbarEventModel
                 )
                 .assertNoErrors()
+
+        Assert.assertEquals(result, locationEventModel.locations)
+        Assert.assertEquals(toolbarString, toolbarEventModel.title)
     }
 
     @Test

@@ -4,6 +4,7 @@ import contact.api.location.GetLocation
 import contact.usecase.base.SingleUseCaseTest
 import contact.utils.LocationUtils
 import org.joda.time.LocalDateTime
+import org.junit.Assert
 import org.junit.Test
 import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks

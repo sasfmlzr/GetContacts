@@ -39,11 +39,12 @@ internal class GetMinMaxDatePipeTest{
         val result = Pair(LocalDateTime(), LocalDateTime())
         getMinMaxDate.willReturn(locations, result)
 
+        val minMaxModel = MinMaxDateEventModel(result.first, result.second)
         Observable.just(RequestMinMaxDateEvent(locations))
                 .compose(pipe)
                 .test()
                 .assertValues(
-                        MinMaxDateEventModel(result.first, result.second)
+                        minMaxModel
                 )
                 .assertNoErrors()
     }
