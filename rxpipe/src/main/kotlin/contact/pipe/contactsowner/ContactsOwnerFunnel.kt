@@ -7,7 +7,7 @@ class ContactsOwnerFunnel(initState: ContactsOwnerState) : Funnel<ContactsOwnerS
     override fun reduce(state: ContactsOwnerState, eventModel: EventModel): ContactsOwnerState {
         return when (eventModel) {
             is ObserveContactsOwnerEventModel -> state.copy(eventModel = eventModel)
-            else -> state
+            else -> state.copy(eventModel = null)
         }
     }
 }

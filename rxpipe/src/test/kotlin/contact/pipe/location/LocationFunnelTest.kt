@@ -11,7 +11,7 @@ import org.junit.Test
 
 class LocationFunnelTest {
 
-    lateinit var locationState: LocationState
+    lateinit var currentState: LocationState
     private val initModel = BundleModel("test")
     private val initState = LocationState.idle(initModel)
 
@@ -21,7 +21,7 @@ class LocationFunnelTest {
                 listOf(GetLocation(0.0, 0.0, LocalDateTime())))
 
         getStatesObserver(eventModel)
-                .assertValues(initState, locationState)
+                .assertValues(initState, currentState)
                 .assertNoErrors()
                 .assertComplete()
     }
@@ -31,7 +31,7 @@ class LocationFunnelTest {
         val eventModel = MinMaxDateEventModel(LocalDateTime(), LocalDateTime())
 
         getStatesObserver(eventModel)
-                .assertValues(initState, locationState)
+                .assertValues(initState, currentState)
                 .assertNoErrors()
                 .assertComplete()
     }
@@ -41,7 +41,7 @@ class LocationFunnelTest {
         val eventModel = ToolbarEventModel("Test")
 
         getStatesObserver(eventModel)
-                .assertValues(initState, locationState)
+                .assertValues(initState, currentState)
                 .assertNoErrors()
                 .assertComplete()
     }
@@ -51,7 +51,7 @@ class LocationFunnelTest {
         val eventModel = ErrorEventModel(RuntimeException("Test"))
 
         getStatesObserver(eventModel)
-                .assertValues(initState, locationState)
+                .assertValues(initState, currentState)
                 .assertNoErrors()
                 .assertComplete()
     }
@@ -69,7 +69,7 @@ class LocationFunnelTest {
 
     private fun getStatesObserver(eventModel: EventModel): TestObserver<LocationState> {
         val locationFunnel = LocationFunnel(initState)
-        locationState = LocationState(eventModel)
+        currentState = LocationState(eventModel)
         val testObserver = TestObserver.create<LocationState>()
         locationFunnel.apply(Observable.just(eventModel))
                 .subscribe(testObserver)
