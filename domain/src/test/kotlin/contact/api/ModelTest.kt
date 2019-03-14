@@ -19,7 +19,6 @@ class ModelTest {
 
     @Test
     fun `Verify contact model`() {
-
         Assert.assertEquals(contact.name, "test")
         Assert.assertEquals(contact.phone, "test")
     }
