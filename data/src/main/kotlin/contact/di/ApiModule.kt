@@ -1,14 +1,13 @@
 package contact.di
 
 import contact.api.ContactsApi
-import contact.api.ContactsConverterFactory
+import contact.api.getOwnerContactConverterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.HttpUrl
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import javax.inject.Singleton
-
 
 @Module
 internal class ApiModule {
@@ -28,7 +27,7 @@ internal class ApiModule {
 
         val retrofit = Retrofit.Builder()
                 .baseUrl(httpUrl)
-                .addConverterFactory(ContactsConverterFactory.getOwnerContactConverterFactory())
+                .addConverterFactory(getOwnerContactConverterFactory())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
         return retrofit.create(ContactsApi::class.java)

@@ -24,7 +24,7 @@ class LocalContactStorageTest {
     @Mock
     lateinit var contactRepository: ContactRepository
 
-    private val testContact = Contact("test", "0000")
+    private val testContact = Contact("aaa", "0000")
     private val list: List<OwnerContacts> = listOf(OwnerContacts("aaa",
             mutableListOf(testContact, Contact("sss")),
             mutableListOf(GetLocation(1.0, 2.0, LocalDateTime()),
