@@ -10,6 +10,8 @@ android {
         test.java.srcDirs += 'src/test/kotlin'
         androidTest.java.srcDirs += 'src/androidTest/kotlin'
     }
+
+    testBuildType "debug"
     compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
         applicationId 'com.sasfmlzr.contact.android'
@@ -17,6 +19,8 @@ android {
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -30,13 +34,12 @@ android {
         debug {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable true
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
         }
 
         release {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
             debuggable false
             minifyEnabled true
             shrinkResources true
@@ -56,12 +59,6 @@ dependencies {
 
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
 
-    // Room components
-    implementation "androidx.room:room-runtime:$roomVersion"
-    kapt "androidx.room:room-compiler:$roomVersion"
-
-    implementation "android.arch.work:work-runtime-ktx:$workVersion"
-
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
 
@@ -75,8 +72,11 @@ dependencies {
     kapt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
 
     // Tests
+    androidTestImplementation "androidx.arch.core:core-testing:$coreTestingVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espressoVersion"
     testImplementation "junit:junit:$junitVersion"
-    testImplementation "org.mockito:mockito-core:$mockitoVersion"
 
     implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlinVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroidVersion"
