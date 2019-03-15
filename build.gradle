@@ -7,23 +7,23 @@ buildscript {
         minSdkVersion = 23
         targetSdkVersion = 28
 
-        appcompatVersion = '1.1.0-alpha02'
-        butterknifeVersion = '10.0.0'
+        appcompatVersion = '1.1.0-alpha03'
+        butterknifeVersion = '10.1.0'
         constraintLayoutVersion = '2.0.0-alpha3'
         coreTestingVersion = '2.0.0'
         daggerVersion = '2.21'
         detektVersion = '1.0.0-RC12'
-        espressoVersion = '3.1.0-alpha4'
-        gradleVersion = '3.3.2'
+        espressoVersion = '3.2.0-alpha02'
+        gradleVersion = '3.4.0-rc02'
         gsonVersion = '2.8.5'
         googleMapVersion = '16.0.0'
         jodaTimeVersion = '2.10.1'
-        junitVersion = '4.13-beta-1'
+        junitVersion = '4.13-beta-2'
         kotlinVersion = '1.3.21'
         materialVersion = '1.1.0-alpha04'
         mockitoVersion = '2.23.4'
-        navigationVersion = '1.0.0-rc02'
-        recyclerviewVersion = '1.1.0-alpha02'
+        navigationVersion = '1.0.0'
+        recyclerviewVersion = '1.1.0-alpha03'
         retrofitVersion = '2.5.0'
         roomVersion = '2.1.0-alpha04'
         rxandroidVersion = '2.1.0'
@@ -40,7 +40,7 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$gradleVersion"
+        classpath "com.android.tools.build:gradle:${gradleVersion}"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detektVersion"
         classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
