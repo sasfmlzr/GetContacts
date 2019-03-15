@@ -45,6 +45,32 @@ android {
             shrinkResources true
         }
     }
+
+    flavorDimensions "dev", "data_source"
+
+    productFlavors {
+
+        dev {
+            dimension "dev"
+        }
+
+        real {
+            dimension "data_source"
+            buildConfigField "boolean", "MOCK_ARCHITECTURE", "false"
+        }
+
+        mock {
+            dimension "data_source"
+            buildConfigField "boolean", "MOCK_ARCHITECTURE", "true"
+        }
+
+    }
+
+    variantFilter { variant ->
+        if (variant.getFlavors().get(0).name != 'dev' && variant.getFlavors().get(1).name == 'mock') {
+            variant.setIgnore(true)
+        }
+    }
 }
 
 dependencies {
