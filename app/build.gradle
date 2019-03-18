@@ -54,11 +54,6 @@ android {
             dimension "dev"
         }
 
-        devMock {
-            applicationId "com.sasfmlzr.contact.mock"
-            dimension "dev"
-        }
-
         real {
             dimension "data_source"
             buildConfigField "boolean", "MOCK_ARCHITECTURE", "false"

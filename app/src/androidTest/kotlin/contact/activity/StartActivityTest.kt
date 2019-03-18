@@ -6,8 +6,10 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.rule.ActivityTestRule
+import contact.BuildConfig
 import contact.R
 import contact.activity.start.StartActivity
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
@@ -16,6 +18,14 @@ class StartActivityTest {
     @Rule
     @JvmField
     var activityTestRule = ActivityTestRule(StartActivity::class.java)
+
+    @Suppress("ConstantConditionIf")
+    @Before
+    fun setUp(){
+        if (BuildConfig.FLAVOR != "devMock") {
+            throw RuntimeException("Сhange build variant to devMock")
+        }
+    }
 
     @Test
     fun verify_Start_Activity() {
