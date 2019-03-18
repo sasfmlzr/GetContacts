@@ -1,12 +1,12 @@
 package contact.di.core
 
-import contact.di.DataModule
+import contact.di.mock.MockDataModule
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [
     ApplicationModule::class,
-    DataModule::class
+    MockDataModule::class
 ])
 interface MockApplicationComponent : ApplicationComponent
