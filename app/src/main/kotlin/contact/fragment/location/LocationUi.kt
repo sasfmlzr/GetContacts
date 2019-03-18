@@ -10,7 +10,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import com.tsongkha.spinnerdatepicker.DatePickerDialog
 import contact.R
-import contact.api.location.GetLocation
+import contact.api.location.Location
 import contact.architecture.GoogleMapCallback
 import contact.architecture.base.ui.BaseModel
 import contact.architecture.base.ui.Ui
@@ -121,7 +121,7 @@ class LocationUi @Inject constructor() : Ui(), GoogleMapCallback {
         )
     }
 
-    private fun configureLocations(locations: List<GetLocation>) {
+    private fun configureLocations(locations: List<Location>) {
         map.getMapAsync { googleMap ->
             googleMap.clear()
             val polyLines = PolylineOptions()

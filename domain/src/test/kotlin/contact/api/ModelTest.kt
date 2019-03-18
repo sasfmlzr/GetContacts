@@ -1,6 +1,6 @@
 package contact.api
 
-import contact.api.location.GetLocation
+import contact.api.location.Location
 import contact.api.model.contact.Contact
 import contact.api.model.contact.OwnerContacts
 import org.joda.time.LocalDateTime
@@ -8,7 +8,7 @@ import org.junit.Assert
 import org.junit.Test
 
 class ModelTest {
-    private val location = GetLocation(0.0, 0.0, LocalDateTime())
+    private val location = Location(0.0, 0.0, LocalDateTime())
     private val contact = Contact("test", "test")
 
     @Test

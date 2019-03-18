@@ -3,7 +3,7 @@ package contact.api
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonObject
-import contact.api.location.GetLocation
+import contact.api.location.Location
 import contact.api.model.contact.OwnerContacts
 import org.joda.time.LocalDateTime
 import org.joda.time.format.DateTimeFormat
@@ -24,13 +24,13 @@ fun getOwnerContactConverterFactory(): GsonConverterFactory {
 
 private fun getLocationParser() = GsonBuilder()
         .registerTypeAdapter(
-                GetLocation::class.java,
-                JsonDeserializer<GetLocation> { locationJson, _, _ ->
+                Location::class.java,
+                JsonDeserializer<Location> { locationJson, _, _ ->
                     val loc = locationJson as JsonObject
                     val date = loc.get("date").asString
                     val pattern = DateTimeFormat
                             .forPattern("YYYY-MM-dd HH:mm")
-                    GetLocation(loc.get("latitude")
+                    Location(loc.get("latitude")
                             .asDouble,
                             loc.get("longitude").asDouble,
                             LocalDateTime

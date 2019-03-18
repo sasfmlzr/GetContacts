@@ -1,6 +1,6 @@
 package contact.pipe.location
 
-import contact.api.location.GetLocation
+import contact.api.location.Location
 import contact.architecture.ErrorEventModel
 import contact.base.TestEvent
 import contact.base.willReturn
@@ -23,7 +23,7 @@ internal class GetMinMaxDatePipeTest{
     @Mock
     lateinit var getMinMaxDate: GetMinMaxDateUseCase
 
-    private val locations = listOf(GetLocation(1.0, 0.0, LocalDateTime()))
+    private val locations = listOf(Location(1.0, 0.0, LocalDateTime()))
 
     @Test
     fun `Test event does not emit anything`() {

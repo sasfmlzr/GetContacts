@@ -1,13 +1,13 @@
 package contact.utils
 
-import contact.api.location.GetLocation
+import contact.api.location.Location
 import io.reactivex.Single
 import org.joda.time.LocalDateTime
 import javax.inject.Inject
 
 class LocalLocationUtils @Inject constructor() : LocationUtils {
 
-    override fun getMinMaxDate(locations: List<GetLocation>):
+    override fun getMinMaxDate(locations: List<Location>):
             Single<Pair<LocalDateTime, LocalDateTime>> = Single.fromCallable {
             try {
                 executeParseMinMaxDateFromLocation(locations)
@@ -16,7 +16,7 @@ class LocalLocationUtils @Inject constructor() : LocationUtils {
             }
         }
 
-    private fun executeParseMinMaxDateFromLocation(locations: List<GetLocation>):
+    private fun executeParseMinMaxDateFromLocation(locations: List<Location>):
             Pair<LocalDateTime, LocalDateTime> {
         var minDate: LocalDateTime = locations.first().date
         var maxDate: LocalDateTime = locations.first().date

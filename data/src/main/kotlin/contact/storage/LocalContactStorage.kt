@@ -1,7 +1,7 @@
 package contact.storage
 
 import com.jakewharton.rxrelay2.BehaviorRelay
-import contact.api.location.GetLocation
+import contact.api.location.Location
 import contact.api.model.contact.Contact
 import contact.api.model.contact.OwnerContacts
 import contact.repository.ContactRepository
@@ -35,7 +35,7 @@ internal class LocalContactStorage @Inject constructor(
 
     override fun getLocationById(id: String,
                                  fromDate: LocalDate,
-                                 toDate: LocalDate): Single<List<GetLocation>> {
+                                 toDate: LocalDate): Single<List<Location>> {
         return Single.fromCallable {
             findLocationById(id, fromDate, toDate)
         }
@@ -43,7 +43,7 @@ internal class LocalContactStorage @Inject constructor(
 
     private fun findLocationById(id: String,
                                  fromDate: LocalDate,
-                                 toDate: LocalDate): List<GetLocation> {
+                                 toDate: LocalDate): List<Location> {
         return relay.value?.find { it.id == id }?.locations?.filter {
             it.date.toLocalDate() >= fromDate && it.date.toLocalDate() <= toDate
         } ?: throw RuntimeException("Location not find")

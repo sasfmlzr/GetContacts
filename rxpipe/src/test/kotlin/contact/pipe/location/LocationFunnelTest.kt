@@ -1,6 +1,6 @@
 package contact.pipe.location
 
-import contact.api.location.GetLocation
+import contact.api.location.Location
 import contact.architecture.ErrorEventModel
 import contact.architecture.EventModel
 import contact.base.TestEventModel
@@ -18,7 +18,7 @@ class LocationFunnelTest {
     @Test
     fun `LocationEventModel test`() {
         val eventModel = LocationEventModel(
-                listOf(GetLocation(0.0, 0.0, LocalDateTime())))
+                listOf(Location(0.0, 0.0, LocalDateTime())))
 
         getStatesObserver(eventModel)
                 .assertValues(initState, currentState)

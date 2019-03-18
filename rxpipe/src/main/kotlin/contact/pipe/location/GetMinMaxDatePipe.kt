@@ -1,6 +1,6 @@
 package contact.pipe.location
 
-import contact.api.location.GetLocation
+import contact.api.location.Location
 import contact.architecture.EventModel
 import contact.architecture.Pipe
 import contact.architecture.ViewEvent
@@ -9,7 +9,7 @@ import contact.usecase.feature.GetMinMaxDateUseCase
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class RequestMinMaxDateEvent(val locations: List<GetLocation>) : ViewEvent
+class RequestMinMaxDateEvent(val locations: List<Location>) : ViewEvent
 
 internal class GetMinMaxDatePipe @Inject constructor(
         private val getMinMaxDateUseCase: GetMinMaxDateUseCase

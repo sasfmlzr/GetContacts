@@ -1,6 +1,6 @@
 package contact.usecase.feature
 
-import contact.api.location.GetLocation
+import contact.api.location.Location
 import contact.storage.ContactStorage
 import contact.usecase.base.SingleUseCaseTest
 import org.joda.time.LocalDate
@@ -11,7 +11,7 @@ import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks
 import org.mockito.Mock
 
-internal class ObserveLocationsByIdUseCaseTest : SingleUseCaseTest<List<GetLocation>>() {
+internal class ObserveLocationsByIdUseCaseTest : SingleUseCaseTest<List<Location>>() {
 
     @InjectMocks
     lateinit var observeLocationsByIdUseCase: ObserveLocationsByIdUseCase
@@ -23,7 +23,7 @@ internal class ObserveLocationsByIdUseCaseTest : SingleUseCaseTest<List<GetLocat
 
     @Test
     fun `Happy pass`() {
-        val result = listOf(GetLocation(1.0, 0.0, LocalDateTime()))
+        val result = listOf(Location(1.0, 0.0, LocalDateTime()))
         given(contactsStorage
                 .getLocationById(params.id, params.fromDate, params.toDate))
                 .willReturnSingle(result)

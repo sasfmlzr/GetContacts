@@ -1,6 +1,6 @@
 package contact.storage
 
-import contact.api.location.GetLocation
+import contact.api.location.Location
 import contact.api.model.contact.Contact
 import contact.api.model.contact.OwnerContacts
 import contact.repository.ContactRepository
@@ -27,14 +27,14 @@ class LocalContactStorageTest {
     private val testContact = Contact("aaa", "0000")
     private val list: List<OwnerContacts> = listOf(OwnerContacts("aaa",
             mutableListOf(testContact, Contact("sss")),
-            mutableListOf(GetLocation(1.0, 2.0, LocalDateTime()),
-                    GetLocation(1.0, 2.0, LocalDateTime().minusMonths(1)))),
+            mutableListOf(Location(1.0, 2.0, LocalDateTime()),
+                    Location(1.0, 2.0, LocalDateTime().minusMonths(1)))),
             OwnerContacts("bbb",
                     mutableListOf(Contact("asd", "2333"), Contact("sss")),
-                    mutableListOf(GetLocation(1.0, 2.0, LocalDateTime()))),
+                    mutableListOf(Location(1.0, 2.0, LocalDateTime()))),
             OwnerContacts("aba",
                     mutableListOf(Contact("asd"), Contact("sss")),
-                    mutableListOf(GetLocation(1.0, 2.0, LocalDateTime()))))
+                    mutableListOf(Location(1.0, 2.0, LocalDateTime()))))
     private val result: Single<List<OwnerContacts>> = Single.just(list)
 
     @Test

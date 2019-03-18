@@ -1,11 +1,11 @@
 package contact.pipe.location
 
-import contact.api.location.GetLocation
+import contact.api.location.Location
 import contact.architecture.EventModel
 import org.joda.time.LocalDateTime
 
 data class LocationEventModel(
-        val locations: List<GetLocation>
+        val locations: List<Location>
 ) : EventModel()
 
 data class MinMaxDateEventModel(

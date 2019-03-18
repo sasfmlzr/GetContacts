@@ -1,6 +1,6 @@
 package contact.storage
 
-import contact.api.location.GetLocation
+import contact.api.location.Location
 import contact.api.model.contact.OwnerContacts
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -12,5 +12,5 @@ interface ContactStorage {
     fun getAll(): Observable<List<OwnerContacts>>
     fun getLocationById(id: String,
                         fromDate: LocalDate,
-                        toDate: LocalDate): Single<List<GetLocation>>
+                        toDate: LocalDate): Single<List<Location>>
 }

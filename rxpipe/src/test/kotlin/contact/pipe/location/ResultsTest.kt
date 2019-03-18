@@ -1,6 +1,6 @@
 package contact.pipe.location
 
-import contact.api.location.GetLocation
+import contact.api.location.Location
 import org.joda.time.LocalDateTime
 import org.junit.Assert
 import org.junit.Test
@@ -10,8 +10,8 @@ class ResultsTest {
     @Test
     fun `LocationEventModel verify`() {
         val date = LocalDateTime()
-        val eventModelOne = LocationEventModel(listOf(GetLocation(0.0, 0.0, date)))
-        val eventModelTwo = LocationEventModel(listOf(GetLocation(0.0, 0.0, date)))
+        val eventModelOne = LocationEventModel(listOf(Location(0.0, 0.0, date)))
+        val eventModelTwo = LocationEventModel(listOf(Location(0.0, 0.0, date)))
         Assert.assertEquals(eventModelOne.locations, eventModelTwo.locations)
     }
 

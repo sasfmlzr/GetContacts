@@ -1,6 +1,6 @@
 package contact.pipe.location
 
-import contact.api.location.GetLocation
+import contact.api.location.Location
 import contact.architecture.ErrorEventModel
 import contact.base.willReturn
 import contact.base.willReturnError
@@ -27,7 +27,7 @@ internal class ObserveLocationsByIdPipeTest {
 
     @Test
     fun `Loading locations are emitted on success`() {
-        val result = listOf(GetLocation(1.0, 0.0, LocalDateTime()))
+        val result = listOf(Location(1.0, 0.0, LocalDateTime()))
 
         observeLocationsById.willReturn(params, result)
 
