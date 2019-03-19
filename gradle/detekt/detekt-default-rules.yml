@@ -186,7 +186,6 @@ exceptions:
      - IllegalMonitorStateException
      - NullPointerException
      - IndexOutOfBoundsException
-     - RuntimeException
      - Throwable
   TooGenericExceptionThrown:
     active: true
@@ -194,7 +193,6 @@ exceptions:
      - Error
      - Exception
      - Throwable
-     - RuntimeException
 
 formatting:
   active: true
@@ -404,7 +402,7 @@ style:
     active: false
     maxJumpCount: 1
   MagicNumber:
-    active: true
+    active: false
     ignoreNumbers: '-1,0,1,2'
     ignoreHashCodeFunction: false
     ignorePropertyDeclaration: false

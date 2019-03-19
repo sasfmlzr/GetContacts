@@ -11,7 +11,7 @@ class LocalLocationUtils @Inject constructor() : LocationUtils {
             Single<Pair<LocalDateTime, LocalDateTime>> = Single.fromCallable {
             try {
                 executeParseMinMaxDateFromLocation(locations)
-            } catch (e: Exception) {
+            } catch (e: RuntimeException) {
                 throw RuntimeException("Location could not be empty")
             }
         }
