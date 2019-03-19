@@ -1,4 +1,4 @@
-package contact.activity
+package contact.test
 
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView

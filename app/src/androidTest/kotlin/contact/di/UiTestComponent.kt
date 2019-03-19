@@ -1,7 +1,7 @@
 package contact.di
 
-import contact.activity.ContainerActivityTest
-import contact.activity.StartActivityTest
+import contact.test.ContainerActivityTest
+import contact.test.StartActivityTest
 import contact.di.base.UiTestScope
 import dagger.Subcomponent
 
