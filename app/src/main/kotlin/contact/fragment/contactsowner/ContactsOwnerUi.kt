@@ -43,7 +43,7 @@ class ContactsOwnerUi @Inject constructor(
         when (model.eventModel) {
             is ObserveContactsOwnerEventModel -> {
                 val contacts = model.eventModel.contacts!!
-                if(contacts.isEmpty()){
+                if (contacts.isEmpty()) {
                     extensions?.showMessage("Server is empty")
                 }
                 configureAdapter(model.eventModel.contacts!!)

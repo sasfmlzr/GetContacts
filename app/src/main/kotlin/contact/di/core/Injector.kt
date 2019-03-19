@@ -4,16 +4,18 @@ import contact.BuildConfig
 
 object Injector {
 
-    private lateinit var component: ApplicationComponent
+    lateinit var component: ApplicationComponent
 
     fun prepare(application: MainApplication) {
-        component = when(BuildConfig.MOCK_ARCHITECTURE) {
-            true -> DaggerMockApplicationComponent.builder()
-                    .applicationModule(ApplicationModule(application))
-                    .build()
-            false -> DaggerApplicationComponent.builder()
-                    .applicationModule(ApplicationModule(application))
-                    .build()
+        if (!::component.isInitialized) {
+            component = when(BuildConfig.MOCK_ARCHITECTURE) {
+                true -> DaggerMockApplicationComponent.builder()
+                        .applicationModule(ApplicationModule(application))
+                        .build()
+                false -> DaggerApplicationComponent.builder()
+                        .applicationModule(ApplicationModule(application))
+                        .build()
+            }
         }
     }
 
