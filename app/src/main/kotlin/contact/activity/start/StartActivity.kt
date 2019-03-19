@@ -13,7 +13,6 @@ import contact.usecase.feature.InitUseCase
 import kotlinx.coroutines.*
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
-import kotlin.system.measureTimeMillis
 
 class StartActivity : BaseActivity() {
 
@@ -51,17 +50,19 @@ class StartActivity : BaseActivity() {
         coroutineScope.launch {
 
             withContext(Dispatchers.Default) {
-                val timeElapsed = measureTimeMillis {
-                    executeInitUseCase()
-                }
-                delay(MIN_SHOW_TIME - timeElapsed)
+                val timeStart = System.currentTimeMillis()
+                executeInitUseCase(timeStart)
             }
         }
     }
 
-    private fun executeInitUseCase() {
+    private suspend fun executeInitUseCase(timeStart: Long) {
         initUseCase.buildUseCaseObservable(Unit).doOnComplete {
-            loadingMainActivity()
+            val timeEnd = System.currentTimeMillis()
+            runBlocking {
+                delay(MIN_SHOW_TIME - (timeEnd - timeStart))
+                loadingMainActivity()
+            }
         }.doOnError {
             it.printStackTrace()
             Snackbar.make(findViewById(android.R.id.content),

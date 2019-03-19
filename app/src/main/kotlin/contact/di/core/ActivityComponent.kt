@@ -1,11 +1,11 @@
 package contact.di.core
 
-import dagger.Subcomponent
 import contact.activity.container.ContainerActivity
 import contact.activity.start.StartActivity
-import contact.di.base.FragmentScope
+import contact.di.base.ActivityScope
+import dagger.Subcomponent
 
-@FragmentScope
+@ActivityScope
 @Subcomponent
 interface ActivityComponent {
     fun inject(activity: ContainerActivity)
