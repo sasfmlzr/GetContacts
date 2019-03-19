@@ -11,7 +11,7 @@ import butterknife.Unbinder
 import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager
 import contact.R
 import contact.api.model.contact.OwnerContacts
-import contact.architecture.base.ui.BaseModel
+import contact.architecture.base.BaseModel
 import contact.architecture.base.ui.Ui
 import contact.fragment.contactsowner.list.ContactsOwnerListAdapter
 import contact.pipe.contactsowner.ObserveContactsOwnerEventModel

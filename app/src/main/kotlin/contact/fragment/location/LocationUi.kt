@@ -12,7 +12,7 @@ import com.tsongkha.spinnerdatepicker.DatePickerDialog
 import contact.R
 import contact.api.location.Location
 import contact.architecture.GoogleMapCallback
-import contact.architecture.base.ui.BaseModel
+import contact.architecture.base.BaseModel
 import contact.architecture.base.ui.Ui
 import contact.pipe.location.*
 import org.joda.time.LocalDate

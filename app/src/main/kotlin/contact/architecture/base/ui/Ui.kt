@@ -8,6 +8,7 @@ import butterknife.Unbinder
 import contact.architecture.EventSource
 import contact.architecture.Extensions
 import contact.architecture.RuntimePermissions
+import contact.architecture.base.BaseModel
 
 abstract class Ui {
 

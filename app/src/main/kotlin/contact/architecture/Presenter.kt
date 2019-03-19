@@ -1,6 +1,6 @@
 package contact.architecture
 
-import contact.architecture.base.ui.BaseModel
+import contact.architecture.base.BaseModel
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.ObservableTransformer

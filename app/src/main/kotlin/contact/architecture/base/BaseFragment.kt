@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.SupportMapFragment
 import contact.R
 import contact.architecture.*
-import contact.architecture.base.ui.BaseModel
 import contact.architecture.base.ui.Ui
 import contact.architecture.base.ui.UiToolkit
 import contact.architecture.logging.Logger

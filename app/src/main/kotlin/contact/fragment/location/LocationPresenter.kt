@@ -1,7 +1,7 @@
 package contact.fragment.location
 
 import contact.architecture.Presenter
-import contact.architecture.base.ui.BaseModel
+import contact.architecture.base.BaseModel
 import contact.pipe.location.LocationState
 import javax.inject.Inject
 

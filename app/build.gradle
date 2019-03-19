@@ -104,6 +104,7 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-intents:$espressoVersion"
     testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
 
     implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlinVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroidVersion"
